@@ -114,6 +114,5 @@ public class Movie implements Serializable {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
-	}
-
+	} 
 }
