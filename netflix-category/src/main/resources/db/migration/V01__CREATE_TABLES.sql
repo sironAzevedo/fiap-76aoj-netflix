@@ -1,0 +1,8 @@
+CREATE SCHEMA IF NOT EXISTS PUBLIC;
+
+CREATE TABLE tb_category
+(
+    ID    BIGINT(20) NOT NULL AUTO_INCREMENT,
+    NAME  VARCHAR (256) NOT NULL,
+    CONSTRAINT pk_category primary key (ID)
+);
