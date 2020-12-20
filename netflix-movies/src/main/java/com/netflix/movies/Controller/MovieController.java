@@ -29,7 +29,7 @@ public class MovieController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/detail/{id_movie}")
+	@GetMapping("/{id_movie}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public MovieDTO detail(@PathVariable final Long id_movie) {
 		return service.detail(id_movie);
