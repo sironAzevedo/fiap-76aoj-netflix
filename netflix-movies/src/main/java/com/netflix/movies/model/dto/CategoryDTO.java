@@ -1,35 +1,18 @@
-package com.netflix.movies.model;
+package com.netflix.movies.model.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.sun.istack.NotNull;
-
-@Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@NotNull
-	@Column(name = "NAME")
 	private String name;
 
-	public Category() {
+	public CategoryDTO() {
 		super();
 	}
 
@@ -48,7 +31,7 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

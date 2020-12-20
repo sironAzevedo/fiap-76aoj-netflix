@@ -1,4 +1,7 @@
 
+--INSERT MOVIE
+INSERT INTO tb_movie (TITLE, SUMMARY, RELEASE_DATE) VALUES ('A Hora do Rush 2', 'Quando a embaixada dos EUA em Hong Kong é atacada, o inspetor Lee e o detetive Carter unem forças contra um sindicato internacional do crime.', '2001-07-01');
+
 --INSERT CATEGORIES
 INSERT INTO tb_category (`name`) VALUES ('Ação');
 INSERT INTO tb_category (`name`) VALUES ('Aventura');
@@ -24,3 +27,6 @@ INSERT INTO tb_category (`name`) VALUES ('Romance');
 INSERT INTO tb_category (`name`) VALUES ('Seriado');
 INSERT INTO tb_category (`name`) VALUES ('Suspense');
 INSERT INTO tb_category (`name`) VALUES ('Terror');
+
+INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 1);
+INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 2);

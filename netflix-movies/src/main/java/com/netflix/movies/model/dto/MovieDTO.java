@@ -1,56 +1,27 @@
-package com.netflix.movies.model;
+package com.netflix.movies.model.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "tb_movie")
-public class Movie implements Serializable {
+public class MovieDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
-
-	@NotNull
-	@Column(name = "TITLE")
 	private String title;
-
-	@NotNull
-	@Column(name = "SUMMARY")
 	private String summary;
-
-	@NotNull
-	@Column(name = "RELEASE_DATE")
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
 	private Date releaseDate;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "tb_movie_category", 
-			joinColumns = @JoinColumn(name = "id_movie"), 
-			inverseJoinColumns = @JoinColumn(name = "id_category"))
-	private List<Category> categories;
-
-	public Movie() {
+	private List<CategoryDTO> categories;
+	
+	public MovieDTO() {
 		super();
 	}
 
@@ -86,11 +57,11 @@ public class Movie implements Serializable {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<Category> getCategories() {
+	public List<CategoryDTO> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Category> categories) {
+	public void setCategories(List<CategoryDTO> categories) {
 		this.categories = categories;
 	}
 	
@@ -115,5 +86,4 @@ public class Movie implements Serializable {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-
 }
