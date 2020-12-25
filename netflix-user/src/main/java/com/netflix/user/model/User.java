@@ -1,7 +1,7 @@
 package com.netflix.user.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.netflix.user.model.enums.UserStatus;
+import com.netflix.user.model.enums.UserStatusEnum;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -48,7 +48,7 @@ public class User implements Serializable {
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private UserStatusEnum status;
 	
 	@OrderBy
 	@JsonIgnore
@@ -57,7 +57,7 @@ public class User implements Serializable {
             name = "tb_user_role",
             joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
 	public User() {
 		super();
@@ -95,19 +95,19 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public UserStatus getStatus() {
+	public UserStatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(UserStatus status) {
+	public void setStatus(UserStatusEnum status) {
 		this.status = status;
 	}
 
-	public Collection<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	

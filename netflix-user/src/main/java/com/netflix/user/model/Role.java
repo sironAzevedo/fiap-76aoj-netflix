@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.netflix.user.model.enums.PerfilEnum;
 import com.sun.istack.NotNull;
 
 @Entity
@@ -27,10 +30,15 @@ public class Role implements Serializable {
 
     @NotNull
     @Column(name = "NAME")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private PerfilEnum name;
 
 	public Role() {
 		super();
+	}
+	
+	public Role(PerfilEnum name) {
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -41,11 +49,11 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
+	public PerfilEnum getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(PerfilEnum name) {
 		this.name = name;
 	}
 	
