@@ -1,8 +1,6 @@
 server:
-  port: 7001
+  port: ${PORT:0}
   
-eureka:  client:    service-url:      defaultZone: http://localhost:8761/eureka
-
 spring:
   application:
     name: netflix-category
@@ -25,3 +23,6 @@ spring:
     baseline-on-migrate: true
     locations:
       - classpath:db/migration
+  
+eureka:  client:    service-url:      defaultZone: http://localhost:8761/eureka
+  instance:    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}      
