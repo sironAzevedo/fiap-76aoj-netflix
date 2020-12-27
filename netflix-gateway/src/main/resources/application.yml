@@ -1,0 +1,21 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: netflix-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+      
+zuul:  routes:    category:
+      service-id: netflix-category
+      path: /netflix-category/**
+    movies:
+      service-id: netflix-movies
+      path: /netflix-movies/**
+    user:
+      service-id: netflix-user
+      path: /netflix-user/**
