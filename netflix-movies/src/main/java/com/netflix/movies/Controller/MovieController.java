@@ -15,7 +15,7 @@ import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.service.IMovieService;
 
 @RestController
-@RequestMapping(value = "/api/v1/movie")
+@RequestMapping(value = "/movies")
 public class MovieController {
 
 	@Autowired

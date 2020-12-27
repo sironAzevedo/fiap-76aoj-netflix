@@ -17,7 +17,7 @@ import com.netflix.user.model.dto.UserDTO;
 import com.netflix.user.service.IUserService;
 
 @RestController
-@RequestMapping(value = "/api/v1/user")
+@RequestMapping(value = "/user")
 public class UserController {
 	
 	@Autowired

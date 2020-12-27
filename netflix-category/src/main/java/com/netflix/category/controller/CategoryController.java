@@ -14,8 +14,8 @@ import com.netflix.category.model.dto.CategoryDTO;
 import com.netflix.category.service.ICategoryService;
 
 @RestController
-@RequestMapping(value = "/api/v1/category")
-public class MovieController {
+@RequestMapping(value = "/category")
+public class CategoryController {
 
 	@Autowired
 	private ICategoryService service;
