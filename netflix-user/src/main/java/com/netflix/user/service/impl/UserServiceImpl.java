@@ -1,13 +1,11 @@
 package com.netflix.user.service.impl;
 
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.netflix.user.converter.UserConverter;
 import com.netflix.user.handler.exception.UserException;
-import com.netflix.user.model.Role;
 import com.netflix.user.model.User;
 import com.netflix.user.model.dto.UserDTO;
 import com.netflix.user.model.enums.PerfilEnum;
@@ -25,8 +23,8 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private IRoleRepository iRole;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder pe;
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Override
 	public UserDTO create(UserDTO dto) {
@@ -36,8 +34,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		User user = UserConverter.INSTANCE.toEntity(dto);
-//		user.setPassword(pe.encode(dto.getPassword()));
-		user.setPassword(dto.getPassword());
+		user.setPassword(pe.encode(dto.getPassword()));
 		user.setStatus(UserStatusEnum.ACTIVE);
 		user.setRoles(iRole.findByName(PerfilEnum.USER));
 		repo.save(user);
