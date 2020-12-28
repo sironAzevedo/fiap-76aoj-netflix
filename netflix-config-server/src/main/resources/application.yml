@@ -1,0 +1,7 @@
+server:  port: 8888
+
+spring:
+  application:
+    name: netflix-config-server
+  cloud:    config:      server:        git:          default-label: main          uri: qqq          username: oo          password: oo
+    
