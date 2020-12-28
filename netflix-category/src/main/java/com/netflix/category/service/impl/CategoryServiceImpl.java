@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import com.netflix.category.repository.ICategoryRepository;
 import com.netflix.category.service.ICategoryService;
 
 @Service
+@RefreshScope
 public class CategoryServiceImpl implements ICategoryService {
 
 	@Autowired

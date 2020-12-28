@@ -1,6 +1,6 @@
 spring:
   application:
-    name: netflix-category
+    name: netflix-movies
   cloud:
     config:
       uri: ${CONFIG_SERVER_URL:http://localhost:8888}
