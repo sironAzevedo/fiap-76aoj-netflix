@@ -19,3 +19,15 @@ zuul:  routes:    category:
     user:
       service-id: netflix-user
       path: /netflix-user/**
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 20000
