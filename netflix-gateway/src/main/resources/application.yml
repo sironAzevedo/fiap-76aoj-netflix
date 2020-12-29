@@ -19,6 +19,9 @@ zuul:  routes:    category:
     user:
       service-id: netflix-user
       path: /netflix-user/**
+    authorization:
+      service-id: netflix-authorization
+      path: /netflix-authorization/**
       
 hystrix:
   command:
