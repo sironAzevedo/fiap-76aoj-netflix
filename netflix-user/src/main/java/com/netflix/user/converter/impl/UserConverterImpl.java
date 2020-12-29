@@ -41,8 +41,13 @@ public class UserConverterImpl implements UserConverter {
 	}
 	
 	protected Set<RoleDTO> getRoles(Set<Role> roles) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<RoleDTO> result = Set.of();
+		for (Role role : roles) {
+			RoleDTO dto = new RoleDTO();
+			dto.setId(role.getId());
+			dto.setName(role.getName());
+			result.add(dto);
+		}
+		return result;
 	}
-
 }
