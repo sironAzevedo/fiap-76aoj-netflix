@@ -52,7 +52,7 @@ public class User implements Serializable {
 	
 	@OrderBy
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_user_role",
             joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id"),
