@@ -6,19 +6,17 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import com.netflix.authorization.model.enums.PerfilEnum;
-
 public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-    private PerfilEnum name;
+    private String name;
 
 	public RoleDTO() {
 		super();
 	}
 	
-	public RoleDTO(PerfilEnum name) {
+	public RoleDTO(String name) {
 		this.name = name;
 	}
 
@@ -30,11 +28,11 @@ public class RoleDTO implements Serializable {
 		this.id = id;
 	}
 
-	public PerfilEnum getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(PerfilEnum name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	

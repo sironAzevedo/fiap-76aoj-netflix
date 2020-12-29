@@ -33,7 +33,7 @@ public class UserController {
 	@ResponseBody
 	@GetMapping(value = "/by-mail")
 	@ResponseStatus(value = HttpStatus.OK)
-	public UserDTO create(@RequestParam(value = "email") String email) {		
+	public UserDTO findByEmail(@RequestParam(value = "email") String email) {
 		return service.findUserByEmail(email);
 	}
 }

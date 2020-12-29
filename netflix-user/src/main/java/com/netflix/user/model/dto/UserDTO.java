@@ -1,6 +1,7 @@
 package com.netflix.user.model.dto;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -9,8 +10,10 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.netflix.user.model.enums.UserStatusEnum;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,13 +22,14 @@ public class UserDTO implements Serializable {
 	@NotEmpty
 	private String name;
 	
-	@NotEmpty
 	@Email
+	@NotEmpty
 	private String email;
 	
 	@NotEmpty
 	private String password;
 	private UserStatusEnum status;
+	private Set<RoleDTO> roles;
 
 	public UserDTO() {
 		super();
@@ -69,6 +73,14 @@ public class UserDTO implements Serializable {
 
 	public void setStatus(UserStatusEnum status) {
 		this.status = status;
+	}
+	
+	public Set<RoleDTO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDTO> roles) {
+		this.roles = roles;
 	}
 
 	@Override
