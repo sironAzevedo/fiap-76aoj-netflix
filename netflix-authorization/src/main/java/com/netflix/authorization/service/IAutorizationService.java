@@ -1,9 +1,7 @@
 package com.netflix.authorization.service;
 
-import com.netflix.authorization.model.dto.UserDTO;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface IAutorizationService {
-	
-	UserDTO findByEmail(String email);
+public interface IAutorizationService extends UserDetailsService {
 
 }

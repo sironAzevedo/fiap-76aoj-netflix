@@ -13,7 +13,6 @@ public interface UserConverter {
 	
 	UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 	
-	@Mapping(target="password", source="entity.password", ignore = true)
 	UserDTO toDTO(User entity);
 	
 	@Mappings({

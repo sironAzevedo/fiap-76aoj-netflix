@@ -1,13 +1,18 @@
 package com.netflix.authorization.model.dto;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserDTO implements Serializable {
+public class UserDTO implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
@@ -70,6 +75,37 @@ public class UserDTO implements Serializable {
 	}
 	
 	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles.stream().map(x -> new SimpleGrantedAuthority(x.getName()))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
+	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
@@ -89,5 +125,5 @@ public class UserDTO implements Serializable {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
-	}
+	} 
 }

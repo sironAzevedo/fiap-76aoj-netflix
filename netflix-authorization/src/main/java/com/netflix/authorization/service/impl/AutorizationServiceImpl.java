@@ -1,6 +1,8 @@
 package com.netflix.authorization.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.netflix.authorization.feignclients.UserFeignClient;
@@ -12,13 +14,12 @@ public class AutorizationServiceImpl implements IAutorizationService {
 
 	@Autowired
 	private UserFeignClient userClient;
-	
+
 	@Override
-	public UserDTO findByEmail(String email) {
-		
-		UserDTO user = userClient.findByEmail(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDTO user = userClient.findByEmail(username);
 		if (user == null) {
-			throw new IllegalArgumentException("Email not found");
+			throw new UsernameNotFoundException("Email not found");
 		}
 		return user;
 	}

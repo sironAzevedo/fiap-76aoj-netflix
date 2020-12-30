@@ -22,6 +22,7 @@ zuul:  routes:    category:
     authorization:
       service-id: netflix-authorization
       path: /netflix-authorization/**
+      sensitive-headers: Cookie,Set-Cookie
       
 hystrix:
   command:

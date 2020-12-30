@@ -23,7 +23,6 @@ public class AuthorizationController {
 	@GetMapping(value = "/search/user/by-mail")
 	@ResponseStatus(value = HttpStatus.OK)
 	public UserDTO findByEmail(@RequestParam(value = "email") String email) {
-		return service.findByEmail(email);
+		return (UserDTO) service.loadUserByUsername(email);
 	}
-
 }
