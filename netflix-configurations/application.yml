@@ -1,7 +1,7 @@
 oauth:
     client:
-        name: myappname123
-        secret: myappsecret123
+        name: fiapappnetflix
+        secret: fiapappnetflix76aoj
 jwt:
   expiration: 86400
   secret: SequenciaDeCaracteresParaAssinarToken
