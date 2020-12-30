@@ -1,0 +1,7 @@
+oauth:
+    client:
+        name: myappname123
+        secret: myappsecret123
+jwt:
+  expiration: 86400
+  secret: SequenciaDeCaracteresParaAssinarToken

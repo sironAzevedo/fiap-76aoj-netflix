@@ -2,6 +2,7 @@ package com.netflix.authorization.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,15 +14,19 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+@RefreshScope
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 	
-//	@Value("${oauth.client.name:myappname123}")
-//	private String clientName;
+	@Value("${oauth.client.name:myappname123}")
+	private String clientName;
 	
-//	@Value("${oauth.client.secret:myappsecret123}")
-//	private String clientSecret;
+	@Value("${oauth.client.secret:myappsecret123}")
+	private String clientSecret;
+	
+	@Value("${jwt.expiration}")
+	private Integer jwtExpiration;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -45,11 +50,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-		.withClient("myappname123")
-		.secret(pe.encode("myappsecret123"))
+		.withClient(clientName)
+		.secret(pe.encode(clientSecret))
 		.scopes("read", "write")
 		.authorizedGrantTypes("password")
-		.accessTokenValiditySeconds(86400);
+		.accessTokenValiditySeconds(jwtExpiration);
 	}
 
 	@Override

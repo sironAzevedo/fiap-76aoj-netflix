@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.netflix.authorization.service.IAutorizationService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -16,12 +17,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private BCryptPasswordEncoder pe;
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private IAutorizationService autorizationService;
 
 	@Override
 	@Autowired
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(pe);
+		auth.userDetailsService(autorizationService).passwordEncoder(pe);
 	}
 
 	@Bean
