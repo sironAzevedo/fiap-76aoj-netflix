@@ -1,6 +1,6 @@
 package com.netflix.user.model.enums;
 
 public enum PerfilEnum {
-	ADMIN, 
-	USER;
+	ROLE_ADMIN, 
+	ROLE_USER
 }

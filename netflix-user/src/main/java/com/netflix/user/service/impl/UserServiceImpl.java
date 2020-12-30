@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 		
 		User user = UserConverter.INSTANCE.toEntity(dto);
 		user.setPassword(pe.encode(dto.getPassword()));
-		user.setRoles(iRole.findByName(PerfilEnum.USER));
+		user.setRoles(iRole.findByName(PerfilEnum.ROLE_USER));
 		repo.save(user);
 		return UserConverter.INSTANCE.toDTO(user);
 	}
