@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>com.netflix</groupId>
-	<artifactId>netflix-eureka-sever</artifactId>
+	<artifactId>netflix-eureka-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>netflix-eureka-server</name>
 	<description>Eureka Server Netflix Microservice</description>
