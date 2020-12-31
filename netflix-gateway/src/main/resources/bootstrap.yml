@@ -3,6 +3,7 @@ spring:
     name: netflix-gateway
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+#      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      uri: ${CONFIG_SERVER_URL:http://netflix-config-server:8888} #Esta url estar apontando para o container docker
 
 management:  endpoints:    web:      exposure:        include: '*'
