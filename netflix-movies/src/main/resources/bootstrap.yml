@@ -1,6 +1,8 @@
 spring:
   application:
     name: netflix-movies
+  profiles:
+    active: ${ENVIRONMENT:test}
   cloud:
     config:
       uri: ${CONFIG_SERVER_URL:http://localhost:8888}
