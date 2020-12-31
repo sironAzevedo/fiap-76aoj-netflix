@@ -1,13 +1,9 @@
 package com.netflix.movies.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.netflix.movies.model.Movie;
+import com.netflix.movies.model.MovieEntity;
 
-public interface IMovieRepository extends JpaRepository<Movie, Long> {
+public interface IMovieRepository extends JpaRepository<MovieEntity, Long> {
 	
-	Page<Movie> findByCategoriesId(final Long idCategory, Pageable pageable);
-
 }

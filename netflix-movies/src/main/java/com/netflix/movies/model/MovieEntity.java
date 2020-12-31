@@ -2,17 +2,12 @@ package com.netflix.movies.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -23,7 +18,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_movie")
-public class Movie implements Serializable {
+public class MovieEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -43,14 +38,7 @@ public class Movie implements Serializable {
 	@Column(name = "RELEASE_DATE")
 	private Date releaseDate;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "tb_movie_category", 
-			joinColumns = @JoinColumn(name = "id_movie"), 
-			inverseJoinColumns = @JoinColumn(name = "id_category"))
-	private List<Category> categories;
-
-	public Movie() {
+	public MovieEntity() {
 		super();
 	}
 
@@ -86,14 +74,6 @@ public class Movie implements Serializable {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-	
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

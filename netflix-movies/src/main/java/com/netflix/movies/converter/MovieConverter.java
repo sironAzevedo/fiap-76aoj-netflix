@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-import com.netflix.movies.model.Movie;
+import com.netflix.movies.model.MovieEntity;
 import com.netflix.movies.model.dto.MovieDTO;
 
 @Mapper
@@ -19,6 +19,6 @@ public interface MovieConverter {
 	      @Mapping(target="summary", source="entity.summary"),
 	      @Mapping(target="releaseDate", source="entity.releaseDate")
 	    })
-	MovieDTO toDTO(Movie entity);
+	MovieDTO toDTO(MovieEntity entity);
 
 }

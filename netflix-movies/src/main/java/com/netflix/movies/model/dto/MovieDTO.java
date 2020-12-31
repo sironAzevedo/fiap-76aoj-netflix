@@ -1,6 +1,7 @@
 package com.netflix.movies.model.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class MovieDTO implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
 	private Date releaseDate;
-	private List<CategoryDTO> categories;
+	private List<CategoryDTO> categories = new ArrayList<>();
 	
 	public MovieDTO() {
 		super();

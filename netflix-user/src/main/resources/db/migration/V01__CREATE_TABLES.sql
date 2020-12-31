@@ -1,8 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS PUBLIC;
-
-CREATE TABLE tb_user
+CREATE TABLE IF NOT EXISTS tb_user
 (
-    ID           BIGINT  (20) NOT NULL AUTO_INCREMENT,
+    ID           serial NOT NULL,
     NAME         VARCHAR (256) NOT NULL,
     EMAIL        VARCHAR (256) NOT NULL,
     PASSWORD     VARCHAR (256) NOT NULL,
@@ -11,18 +9,18 @@ CREATE TABLE tb_user
     CONSTRAINT pk_user primary key (ID)
 );
 
-CREATE TABLE tb_role
+CREATE TABLE IF NOT EXISTS tb_role
 (
-    ID   BIGINT  (20) NOT NULL AUTO_INCREMENT,
+    ID   serial NOT NULL,
     NAME VARCHAR (256) NOT NULL,
     CONSTRAINT pk_role primary key (ID)
 );
 
 
-CREATE TABLE tb_user_role
+CREATE TABLE IF NOT EXISTS tb_user_role
 (
-    id_user BIGINT (20) NOT NULL,
-    id_role BIGINT (20) NOT NULL,
+    id_user BIGINT NOT NULL,
+    id_role BIGINT NOT NULL,
 
 	CONSTRAINT pk_user_role primary key (id_user, id_role),
     CONSTRAINT fk1_user_role FOREIGN KEY (id_user) REFERENCES tb_user (ID),

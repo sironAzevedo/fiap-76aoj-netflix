@@ -8,5 +8,7 @@ import com.netflix.category.model.dto.CategoryDTO;
 public interface ICategoryService {
 
 	Page<CategoryDTO> findAll(Pageable pageable);
+	
+	CategoryDTO findById(Long id);
 
 }

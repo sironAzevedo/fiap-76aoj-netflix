@@ -26,4 +26,9 @@ public class CategoryServiceImpl implements ICategoryService {
 		Page<CategoryDTO> result = repo.findAll(pageable).map(CategoryConverter.INSTANCE::toDTO);
 		return new PageImpl<>(result.stream().collect(Collectors.toList()), pageable, result.getTotalElements());
 	}
+
+	@Override
+	public CategoryDTO findById(Long id) {
+		return repo.findById(id).map(CategoryConverter.INSTANCE::toDTO).orElse(null);
+	}
 }
