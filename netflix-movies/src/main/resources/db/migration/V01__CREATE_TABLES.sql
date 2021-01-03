@@ -35,3 +35,22 @@ CREATE TABLE IF NOT EXISTS tb_movie_watched
 	CONSTRAINT pk_movie_watched primary key (id_user, id_movie),
 	CONSTRAINT fk1_movie_watched FOREIGN KEY (id_movie) REFERENCES tb_movie (ID)
 );
+
+CREATE TABLE IF NOT EXISTS tb_movie_like
+(
+	id_user  BIGINT NOT NULL,
+	id_movie BIGINT NOT NULL,
+	liked    VARCHAR (3) NOT NULL,
+	
+	CONSTRAINT pk_movie_like primary key (id_user, id_movie),
+	CONSTRAINT fk1_movie_like FOREIGN KEY (id_movie) REFERENCES tb_movie (ID)
+);
+
+CREATE TABLE IF NOT EXISTS tb_movie_watch_future
+(
+	id_user  BIGINT NOT NULL,
+	id_movie BIGINT NOT NULL,
+	
+	CONSTRAINT pk_movie_watch_future primary key (id_user, id_movie),
+	CONSTRAINT fk1_movie_watch_future FOREIGN KEY (id_movie) REFERENCES tb_movie (ID)
+);

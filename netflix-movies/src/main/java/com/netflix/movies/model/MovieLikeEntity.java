@@ -1,11 +1,12 @@
 package com.netflix.movies.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,19 +14,22 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.netflix.movies.model.enums.MovieLikeEnum;
+
 @Entity
-@Table(name = "tb_movie_watched")
-public class MovieWatchedEntity implements Serializable {
+@Table(name = "tb_movie_like")
+public class MovieLikeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private MovieUserEntityPK pk;
 
 	@NotNull
-	@Column(name = "date_watched")
-	private Date date;
+	@Column(name = "liked")
+	@Enumerated(EnumType.STRING)
+	private MovieLikeEnum liked;
 
-	public MovieWatchedEntity() {
+	public MovieLikeEntity() {
 		super();
 	}
 
@@ -37,12 +41,12 @@ public class MovieWatchedEntity implements Serializable {
 		this.pk = pk;
 	}
 
-	public Date getDate() {
-		return date;
+	public MovieLikeEnum getLiked() {
+		return liked;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setLiked(MovieLikeEnum liked) {
+		this.liked = liked;
 	}
 
 	@Override

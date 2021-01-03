@@ -21,12 +21,19 @@ import com.netflix.movies.feignClients.CategoryFeignClient;
 import com.netflix.movies.feignClients.UserFeignClient;
 import com.netflix.movies.handler.exception.NotFoundException;
 import com.netflix.movies.handler.exception.UserException;
+import com.netflix.movies.model.MovieEntity;
+import com.netflix.movies.model.MovieLikeEntity;
+import com.netflix.movies.model.MovieWatchFutureEntity;
 import com.netflix.movies.model.MovieWatchedEntity;
 import com.netflix.movies.model.dto.MovieDTO;
+import com.netflix.movies.model.dto.MovieLikeDTO;
+import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
 import com.netflix.movies.model.dto.UserDTO;
 import com.netflix.movies.repository.IMovieCategoryRepository;
+import com.netflix.movies.repository.IMovieLikeRepository;
 import com.netflix.movies.repository.IMovieRepository;
+import com.netflix.movies.repository.IMovieWatchFutureRepository;
 import com.netflix.movies.repository.IMovieWatchedRepository;
 import com.netflix.movies.service.IMovieService;
 
@@ -37,19 +44,25 @@ public class MovieServiceImpl implements IMovieService {
 	private IMovieRepository repo;
 	
 	@Autowired
-	private IMovieCategoryRepository mcRepo;
-	
-	@Autowired
-	private CategoryFeignClient categoryClient;
+	private MovieConverter convert;
 	
 	@Autowired
 	private UserFeignClient userClient;
 	
 	@Autowired
-    private IMovieWatchedRepository movieWatchedRepo;
+	private IMovieCategoryRepository mcRepo;
 	
 	@Autowired
-	private MovieConverter convert;
+	private IMovieLikeRepository movieLikeRepo;
+	
+	@Autowired
+	private CategoryFeignClient categoryClient;
+	
+	@Autowired
+	private IMovieWatchFutureRepository watchFuture;
+	
+	@Autowired
+    private IMovieWatchedRepository movieWatchedRepo;
 	
 	@Override
 	public Page<MovieDTO> byCategory(Long idCategory, Pageable pageable) {
@@ -76,7 +89,7 @@ public class MovieServiceImpl implements IMovieService {
 		List<MovieDTO> movies = new ArrayList<>();
 		
 		Arrays.stream(queries)
-			.forEach(w -> movies.addAll(findBykeywordsKeywordContainingIgnoreCase(w)));
+			.forEach(w -> movies.addAll(findBykeywords(w)));
 		
 		List<MovieDTO> result = movies.stream()
 				.collect(
@@ -87,18 +100,18 @@ public class MovieServiceImpl implements IMovieService {
 	}
 	
 	@Override
-	public void movieWatched(MovieWatchedDTO dto) {
-		UserDTO u = getUser(dto.getUser());
-		repo.findById(dto.getMovie().getId()).orElseThrow(() -> new NotFoundException("movie not found"));
-		MovieWatchedEntity entity = convert.toMovieWatched(dto, u.getId());
+	public void watched(MovieWatchedDTO dto) {
+		findById(dto.getMovie().getId());
+		MovieWatchedEntity entity = convert.toMovieWatched(dto, getUser(dto.getUser()).getId());
 		movieWatchedRepo.save(entity);
+		this.deleteWatchFuture(dto.getUser(), dto.getMovie().getId());
 	}
-	
+	 
+
 	@Override
-	public Page<MovieWatchedDTO> movieWatched(String user, Pageable pageable) {
-		UserDTO u = getUser(user);
+	public Page<MovieWatchedDTO> watched(String user, Pageable pageable) {
 		List<MovieWatchedDTO> movies = new ArrayList<>();
-		movieWatchedRepo.findByUser(u.getId()).forEach(mc -> {
+		movieWatchedRepo.findByUser(getUser(user).getId()).forEach(mc -> {
 			MovieWatchedDTO movie = convert.toDTO(mc);
 			mcRepo.getCategoryByMovie(mc.getPk().getMovie()).forEach(
 					cat -> movie.getMovie().getCategories().add(categoryClient.category(cat.getPk().getCategory()).getName()));
@@ -107,7 +120,59 @@ public class MovieServiceImpl implements IMovieService {
 		return new PageImpl<>(movies, pageable, movies.size());
 	}
 	
-	private List<MovieDTO> findBykeywordsKeywordContainingIgnoreCase(String word) {
+	@Override
+	public void like(MovieLikeDTO dto) {
+		findById(dto.getMovie().getId());
+		MovieLikeEntity entity = convert.toMovieLike(dto, getUser(dto.getUser()).getId());
+		movieLikeRepo.save(entity);
+	}
+
+	@Override
+	public Page<MovieLikeDTO> likes(String user, Pageable pageable) {
+		List<MovieLikeDTO> movies = new ArrayList<>();
+		movieLikeRepo.findByUser(getUser(user).getId()).forEach(ml -> {
+			MovieLikeDTO movie = convert.toDTO(ml);
+			mcRepo.getCategoryByMovie(ml.getPk().getMovie()).forEach(
+					cat -> movie.getMovie().getCategories().add(categoryClient.category(cat.getPk().getCategory()).getName()));
+			movies.add(movie);			
+		});
+		
+		return new PageImpl<>(movies, pageable, movies.size());
+	}
+	
+	@Override
+	public void watchFuture(String user, Long movie) {
+		MovieWatchFutureEntity entity = convert.toMovieWatchFuture(findById(movie), getUser(user).getId());
+		watchFuture.save(entity);
+	}
+	
+	@Override
+	public Page<MovieUserDTO> watchFuture(String user, Pageable pageable) {
+		List<MovieUserDTO> movies = new ArrayList<>();
+		watchFuture.findByUser(getUser(user).getId()).forEach(wf -> {
+			MovieUserDTO movie = convert.toDTO(wf);
+			mcRepo.getCategoryByMovie(wf.getPk().getMovie()).forEach(
+					cat -> movie.getMovie().getCategories().add(categoryClient.category(cat.getPk().getCategory()).getName()));
+			movies.add(movie);			
+		});
+		
+		return new PageImpl<>(movies, pageable, movies.size());
+	}
+	
+	@Override
+	public void deleteWatchFuture(String user, Long movie) {
+		MovieWatchFutureEntity entity = convert.toMovieWatchFuture(findById(movie), getUser(user).getId());
+		Optional<MovieWatchFutureEntity> res = watchFuture.findByUserAndMovie(entity.getPk().getUser(), entity.getPk().getMovie());
+		if(res.isPresent()) {
+			watchFuture.delete(entity);
+		}
+	}
+	
+	private MovieEntity findById(Long movie) {
+		return repo.findById(movie).orElseThrow(() -> new NotFoundException("movie not found"));
+	}
+	
+	private List<MovieDTO> findBykeywords(String word) {
 		List<MovieDTO> movies = new ArrayList<>();
 		repo.findBykeywordsKeywordContainingIgnoreCase(word).forEach(r -> {
 			MovieDTO movie = convert.toDTO(r);
@@ -124,4 +189,8 @@ public class MovieServiceImpl implements IMovieService {
 		}
 		return u;
 	}
+
+
+
+
 }

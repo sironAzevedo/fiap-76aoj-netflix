@@ -1,33 +1,47 @@
 package com.netflix.movies.model.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_EMPTY)
-public class MovieWatchedDTO extends MovieUserDTO implements Serializable {
+public class MovieUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
-	private Date dateWatched;
+	@NotEmpty(message = "O email do usuario é obrigatorio")
+	private String user;
+	
+	@Valid
+	@NotNull
+	private MovieDTO movie;
 
-	public MovieWatchedDTO() {
+	public MovieUserDTO() {
 		super();
 	}
 
-	public Date getDateWatched() {
-		return dateWatched;
+	public String getUser() {
+		return user;
 	}
 
-	public void setDateWatched(Date dateWatched) {
-		this.dateWatched = dateWatched;
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public MovieDTO getMovie() {
+		return movie;
+	}
+
+	public void setMovie(MovieDTO movie) {
+		this.movie = movie;
 	}
 
 	@Override

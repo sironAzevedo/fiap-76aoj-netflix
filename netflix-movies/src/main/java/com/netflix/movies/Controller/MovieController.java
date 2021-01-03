@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.movies.model.dto.MovieDTO;
+import com.netflix.movies.model.dto.MovieLikeDTO;
+import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
 import com.netflix.movies.service.IMovieService;
 
@@ -49,16 +51,44 @@ public class MovieController {
 	}
 
 	@ResponseBody
-	@PostMapping("/movie-watched")
+	@PostMapping("/watched")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void movieWatched(@Valid @RequestBody MovieWatchedDTO dto) {
-		service.movieWatched(dto);
+		service.watched(dto);
 	}
 
 	@ResponseBody
-	@GetMapping("/movie-watched")
+	@GetMapping("/watched")
 	@ResponseStatus(value = HttpStatus.OK)
 	public Page<MovieWatchedDTO> movieWatched(@RequestParam(value = "user") String user, Pageable pageable) {
-		return service.movieWatched(user, pageable);
+		return service.watched(user, pageable);
 	}
+	
+	@ResponseBody
+	@PostMapping("/like")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void like(@Valid @RequestBody MovieLikeDTO dto) {
+		service.like(dto);
+	}
+	
+	@ResponseBody
+	@GetMapping("/likes")
+	@ResponseStatus(value = HttpStatus.OK)
+    public Page<MovieLikeDTO> likes(@RequestParam(value = "user") String user, Pageable pageable) {
+        return service.likes(user, pageable);
+    }
+	
+	@ResponseBody
+	@PostMapping("/future")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void future(@Valid @RequestBody MovieUserDTO dto) {
+		service.watchFuture(dto.getUser(), dto.getMovie().getId());
+	}
+	
+	@ResponseBody
+	@GetMapping("/futures")
+	@ResponseStatus(value = HttpStatus.OK)
+    public Page<MovieUserDTO> futures(@RequestParam(value = "user") String user, Pageable pageable) {
+        return service.watchFuture(user, pageable);
+    }
 }

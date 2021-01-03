@@ -1,47 +1,34 @@
-package com.netflix.movies.model;
+package com.netflix.movies.model.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.netflix.movies.model.enums.MovieLikeEnum;
 
-public class MovieWatchedEntityPK implements Serializable {
+@JsonInclude(Include.NON_EMPTY)
+public class MovieLikeDTO extends MovieUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
-	@Column(name = "id_user")
-	private Long user;
+	@NotNull(message = "Informe yes ou no")
+	private MovieLikeEnum liked;
 
-	@NotNull
-	@OneToOne
-	@JoinColumn(name = "id_movie", referencedColumnName = "id")
-	private MovieEntity movie;
-
-	public MovieWatchedEntityPK() {
+	public MovieLikeDTO() {
 		super();
 	}
 
-	public Long getUser() {
-		return user;
+	public MovieLikeEnum getLiked() {
+		return liked;
 	}
 
-	public void setUser(Long user) {
-		this.user = user;
-	}
-
-	public MovieEntity getMovie() {
-		return movie;
-	}
-
-	public void setMovie(MovieEntity movie) {
-		this.movie = movie;
+	public void setLiked(MovieLikeEnum liked) {
+		this.liked = liked;
 	}
 
 	@Override

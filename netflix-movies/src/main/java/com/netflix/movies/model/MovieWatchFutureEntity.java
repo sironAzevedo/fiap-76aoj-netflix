@@ -1,33 +1,33 @@
-package com.netflix.movies.model.dto;
+package com.netflix.movies.model;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonInclude(Include.NON_EMPTY)
-public class MovieWatchedDTO extends MovieUserDTO implements Serializable {
+@Entity
+@Table(name = "tb_movie_watch_future")
+public class MovieWatchFutureEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
-	private Date dateWatched;
-
-	public MovieWatchedDTO() {
+	@EmbeddedId
+	private MovieUserEntityPK pk;
+	 
+	public MovieWatchFutureEntity() {
 		super();
 	}
-
-	public Date getDateWatched() {
-		return dateWatched;
+	
+	public MovieUserEntityPK getPk() {
+		return pk;
 	}
 
-	public void setDateWatched(Date dateWatched) {
-		this.dateWatched = dateWatched;
+	public void setPk(MovieUserEntityPK pk) {
+		this.pk = pk;
 	}
 
 	@Override
