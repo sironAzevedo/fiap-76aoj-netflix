@@ -8,7 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      #defaultZone: http://localhost:8761/eureka
-      defaultZone: http://netflix-eureka-server:8761/eureka #Esta url estar apontando para o container docker
+      #defaultZone: http://netflix-eureka-server:8761/eureka #Esta url aponta para o container docker
+      defaultZone: ${URL_EUREKA_SERVER:http://localhost:8761/eureka}
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

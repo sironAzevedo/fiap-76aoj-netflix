@@ -41,6 +41,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public UserDTO findUserByEmail(String email) {
-		return repo.findByEmail(email).map(UserConverter.INSTANCE::toDTO).orElseThrow(()-> new UserException("Usuário não encontrado!"));
+		return repo.findByEmail(email).map(UserConverter.INSTANCE::toDTO).orElse(null);
 	}
 }

@@ -10,3 +10,15 @@ INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 1);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 2);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (2, 1);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (3, 6);
+
+--INSERT MOVIE_KEYWORD
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Filmes de artes marciais');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Comédia');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Hong Kong');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Jackie Chan');
+
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Fantasia');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Ficção');
+
+--INSERT MOVIE_WATCHED
+INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (2, 1, '2020-12-01');
