@@ -1,5 +1,7 @@
 package com.netflix.helpdesk.converter;
 
+import java.util.Date;
+
 import org.mapstruct.Mapper;
 
 import com.netflix.helpdesk.model.StatusEntity;
@@ -24,8 +26,8 @@ public abstract class HelpdeskConverter {
 		TicketEntity entity = new TicketEntity();
 		entity.setUser(user.getId());
 		entity.setDescription(dto.getDescription());
-		entity.setStartDate(dto.getStartDate());
-		entity.setEndDate(dto.getEndDate());
+		entity.setStartDate(new Date());
+		entity.setEndDate(null);
 		entity.setStatus(status);
 		return entity;
 	}

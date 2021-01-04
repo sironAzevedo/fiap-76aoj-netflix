@@ -2,6 +2,7 @@ package com.netflix.helpdesk.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.netflix.helpdesk.service.IServiceTicket;
 @RequestMapping(value = "/ticket")
 public class HelpdeskController {
 	
+	@Autowired
 	private IServiceTicket service;
 	
 	@PostMapping

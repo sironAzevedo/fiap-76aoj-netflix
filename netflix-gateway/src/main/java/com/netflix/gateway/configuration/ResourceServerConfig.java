@@ -28,6 +28,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private static final String[] PUBLIC = {
 			"/netflix-authorization/oauth/token",
+			"/netflix-help-desk/ticket/**",
 			"/netflix-user/user",
 			"/h2-console/**",
 			"/swagger-resources/**",

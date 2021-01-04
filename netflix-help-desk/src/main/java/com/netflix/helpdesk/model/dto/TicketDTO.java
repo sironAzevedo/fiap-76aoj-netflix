@@ -3,17 +3,32 @@ package com.netflix.helpdesk.model.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_EMPTY)
 public class TicketDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	@NotEmpty(message = "O email do usuario é obrigatorio")
 	private String user;
+	
+	@NotEmpty(message = "a description é obrigatorio")
 	private String description;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
 	private Date startDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
 	private Date endDate;
 	private String status;
 

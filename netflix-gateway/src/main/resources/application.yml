@@ -20,6 +20,9 @@ zuul:  routes:    category:
     user:
       service-id: netflix-user
       path: /netflix-user/**
+    help-desk:
+      service-id: netflix-help-desk
+      path: /netflix-help-desk/**
     authorization:
       service-id: netflix-authorization
       path: /netflix-authorization/**

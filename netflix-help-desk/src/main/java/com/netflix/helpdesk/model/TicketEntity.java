@@ -44,7 +44,7 @@ public class TicketEntity implements Serializable {
 	private Date endDate;
 
 	@JoinColumn(name = "id_status", nullable = false)
-	@ManyToOne(targetEntity = StatusEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = StatusEntity.class, fetch = FetchType.EAGER)
 	private StatusEntity status;
 
 	public TicketEntity() {
