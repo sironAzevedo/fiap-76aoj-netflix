@@ -226,9 +226,4 @@ public class MovieServiceImpl implements IMovieService {
 		}
 		return u;
 	}
-
-
-
-
-
 }
