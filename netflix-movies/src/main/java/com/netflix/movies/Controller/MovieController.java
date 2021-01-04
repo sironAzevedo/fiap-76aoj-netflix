@@ -1,5 +1,7 @@
 package com.netflix.movies.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.model.dto.MovieLikeDTO;
 import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
+import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
 import com.netflix.movies.service.IMovieService;
 
 @RestController
@@ -90,5 +93,12 @@ public class MovieController {
 	@ResponseStatus(value = HttpStatus.OK)
     public Page<MovieUserDTO> futures(@RequestParam(value = "user") String user, Pageable pageable) {
         return service.watchFuture(user, pageable);
+    }
+	
+	@ResponseBody
+	@GetMapping("/top/by-category")
+	@ResponseStatus(value = HttpStatus.OK)
+    public List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable) {
+        return service.getTopMovieByCategory(pageable);
     }
 }

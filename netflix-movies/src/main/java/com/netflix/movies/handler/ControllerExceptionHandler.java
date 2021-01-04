@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.netflix.movies.handler.exception.EmptyResultDataAccessException;
+import com.netflix.movies.handler.exception.InternalErrorException;
 import com.netflix.movies.handler.exception.NotFoundException;
 import com.netflix.movies.handler.exception.UserException;
 
@@ -25,7 +26,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(value = { EmptyResultDataAccessException.class, NotFoundException.class, UserException.class })
-	public StandardError emptyResultNotFound(RuntimeException e, HttpServletRequest request) {
+	public StandardError tNotFound(RuntimeException e, HttpServletRequest request) {
+		return StandardError.builder(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Date());
+	}
+	
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = { InternalErrorException.class })
+	public StandardError internalError(RuntimeException e, HttpServletRequest request) {
 		return StandardError.builder(HttpStatus.NOT_FOUND.value(), e.getMessage(), new Date());
 	}
 	

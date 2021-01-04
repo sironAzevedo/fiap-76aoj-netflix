@@ -18,17 +18,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_EMPTY)
 public class MovieDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@NotNull
 	private Long id;
 	private String title;
 	private String summary;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
 	private Date releaseDate;
 	private List<String> categories = new ArrayList<>();
 	private List<String> keywords;
-	
+
 	public MovieDTO() {
 		super();
 	}
@@ -72,7 +72,7 @@ public class MovieDTO implements Serializable {
 	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
-	
+
 	public List<String> getKeywords() {
 		return keywords;
 	}

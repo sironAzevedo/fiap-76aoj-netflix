@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.netflix.movies.model.MovieEntity;
 import com.netflix.movies.model.MovieUserEntityPK;
 import com.netflix.movies.model.MovieWatchFutureEntity;
 
+@Repository
 public interface IMovieWatchFutureRepository extends JpaRepository<MovieWatchFutureEntity, MovieUserEntityPK> {
 
 	@Query("SELECT m FROM MovieWatchFutureEntity m WHERE m.pk.user = :user")

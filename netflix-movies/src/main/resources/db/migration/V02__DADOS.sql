@@ -28,6 +28,7 @@ INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Fantasia');
 INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Ficção');
 
 --INSERT MOVIE_WATCHED
+INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (1, 1, '2020-12-01');
 INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (2, 1, '2020-12-01');
 INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (2, 2, '2020-12-01');
 

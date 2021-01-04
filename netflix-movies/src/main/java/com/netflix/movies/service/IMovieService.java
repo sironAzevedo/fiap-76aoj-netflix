@@ -1,5 +1,7 @@
 package com.netflix.movies.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -7,6 +9,7 @@ import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.model.dto.MovieLikeDTO;
 import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
+import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
 
 public interface IMovieService {
 
@@ -29,4 +32,6 @@ public interface IMovieService {
 	Page<MovieUserDTO> watchFuture(String user, Pageable pageable);	
 	
 	void deleteWatchFuture(String user, Long movie);
+	
+	List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable);
 }

@@ -6,6 +6,8 @@ import static java.util.stream.Collectors.collectingAndThen;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -25,16 +27,21 @@ import com.netflix.movies.model.MovieEntity;
 import com.netflix.movies.model.MovieLikeEntity;
 import com.netflix.movies.model.MovieWatchFutureEntity;
 import com.netflix.movies.model.MovieWatchedEntity;
+import com.netflix.movies.model.dto.CategoryDTO;
 import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.model.dto.MovieLikeDTO;
 import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
+import com.netflix.movies.model.dto.TopMovieCategoryDTO;
+import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
+import com.netflix.movies.model.dto.TopMovieDTO;
 import com.netflix.movies.model.dto.UserDTO;
 import com.netflix.movies.repository.IMovieCategoryRepository;
 import com.netflix.movies.repository.IMovieLikeRepository;
 import com.netflix.movies.repository.IMovieRepository;
 import com.netflix.movies.repository.IMovieWatchFutureRepository;
 import com.netflix.movies.repository.IMovieWatchedRepository;
+import com.netflix.movies.repository.custom.IMovieCategoryCustomRepository;
 import com.netflix.movies.service.IMovieService;
 
 @Service
@@ -51,6 +58,9 @@ public class MovieServiceImpl implements IMovieService {
 	
 	@Autowired
 	private IMovieCategoryRepository mcRepo;
+	
+	@Autowired
+	private IMovieCategoryCustomRepository mcCustomRepo;
 	
 	@Autowired
 	private IMovieLikeRepository movieLikeRepo;
@@ -168,6 +178,33 @@ public class MovieServiceImpl implements IMovieService {
 		}
 	}
 	
+	@Override
+	public List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable) {
+		List<TopMovieCategoryResponseDTO> resp = new ArrayList<>();
+		List<TopMovieCategoryDTO> movies = mcCustomRepo.getTopMovieByCategory().stream()
+		.collect(
+				collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(
+						comparingLong(TopMovieCategoryDTO::getCodMovie))), ArrayList::new));
+		
+		
+		Map<CategoryDTO, List<TopMovieCategoryDTO>> collect = movies.stream().collect(Collectors.groupingBy(c -> categoryClient.category(c.getCategory())));
+		for (Entry<CategoryDTO, List<TopMovieCategoryDTO>> entry : collect.entrySet()) {
+			TopMovieCategoryResponseDTO dtoResp = new TopMovieCategoryResponseDTO();
+			dtoResp.setCategory(entry.getKey().getName());
+			
+			for (TopMovieCategoryDTO top : entry.getValue()) {
+				TopMovieDTO dto = new TopMovieDTO();
+				dto.setViews(top.getAmount());
+				dto.setMovie(convert.toDTO(findById(top.getCodMovie())));
+				dtoResp.getMovies().add(dto);
+			}
+			
+			resp.add(dtoResp);
+	    }
+		
+		return resp;
+	}
+	
 	private MovieEntity findById(Long movie) {
 		return repo.findById(movie).orElseThrow(() -> new NotFoundException("movie not found"));
 	}
@@ -189,6 +226,7 @@ public class MovieServiceImpl implements IMovieService {
 		}
 		return u;
 	}
+
 
 
 
