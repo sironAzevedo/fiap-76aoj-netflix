@@ -23,6 +23,7 @@ import com.netflix.movies.feignClients.CategoryFeignClient;
 import com.netflix.movies.feignClients.UserFeignClient;
 import com.netflix.movies.handler.exception.NotFoundException;
 import com.netflix.movies.handler.exception.UserException;
+import com.netflix.movies.kafka.producer.MovieWatchedProducer;
 import com.netflix.movies.model.MovieEntity;
 import com.netflix.movies.model.MovieLikeEntity;
 import com.netflix.movies.model.MovieWatchFutureEntity;
@@ -74,6 +75,9 @@ public class MovieServiceImpl implements IMovieService {
 	@Autowired
     private IMovieWatchedRepository movieWatchedRepo;
 	
+	@Autowired
+	private MovieWatchedProducer producer;
+	
 	@Override
 	public Page<MovieDTO> byCategory(Long idCategory, Pageable pageable) {
 
@@ -114,9 +118,8 @@ public class MovieServiceImpl implements IMovieService {
 		findById(dto.getMovie().getId());
 		MovieWatchedEntity entity = convert.toMovieWatched(dto, getUser(dto.getUser()).getId());
 		movieWatchedRepo.save(entity);
-		this.deleteWatchFuture(dto.getUser(), dto.getMovie().getId());
+		producer.sendMessage(dto);
 	}
-	 
 
 	@Override
 	public Page<MovieWatchedDTO> watched(String user, Pageable pageable) {
