@@ -17,6 +17,9 @@ zuul:  routes:    category:
     movies:
       service-id: netflix-movies
       path: /netflix-movies/**
+    series:
+      service-id: netflix-series
+      path: /netflix-series/**
     user:
       service-id: netflix-user
       path: /netflix-user/**

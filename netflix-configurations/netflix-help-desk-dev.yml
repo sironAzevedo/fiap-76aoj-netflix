@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5435/db_netflix-help-desk
+        url: jdbc:postgresql://localhost:5436/db_netflix-help-desk
         driver-class-name: org.postgresql.Driver
         username: postgres
         password: root

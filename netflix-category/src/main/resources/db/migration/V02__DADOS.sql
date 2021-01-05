@@ -1,4 +1,3 @@
---INSERT CATEGORIES
 INSERT INTO tb_category (name) VALUES ('Ação');
 INSERT INTO tb_category (name) VALUES ('Aventura');
 INSERT INTO tb_category (name) VALUES ('Cinema de arte');
@@ -18,8 +17,10 @@ INSERT INTO tb_category (name) VALUES ('Fantasia científica');
 INSERT INTO tb_category (name) VALUES ('Ficção científica');
 INSERT INTO tb_category (name) VALUES ('Filmes de guerra');
 INSERT INTO tb_category (name) VALUES ('Musical');
-INSERT INTO tb_category (name) VALUES ('Filme policial');
+INSERT INTO tb_category (name) VALUES ('Filme policiais');
+INSERT INTO tb_category (name) VALUES ('Séries policiais');
 INSERT INTO tb_category (name) VALUES ('Romance');
 INSERT INTO tb_category (name) VALUES ('Seriado');
 INSERT INTO tb_category (name) VALUES ('Suspense');
 INSERT INTO tb_category (name) VALUES ('Terror');
+INSERT INTO tb_category (name) VALUES ('Anime');

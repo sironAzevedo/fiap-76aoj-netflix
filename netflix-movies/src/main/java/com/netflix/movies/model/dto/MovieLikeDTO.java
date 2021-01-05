@@ -10,24 +10,24 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.netflix.movies.model.enums.MovieLikeEnum;
+import com.netflix.movies.model.enums.SerieLikeEnum;
 
 @JsonInclude(Include.NON_EMPTY)
 public class MovieLikeDTO extends MovieUserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NotNull(message = "Informe yes ou no")
-	private MovieLikeEnum liked;
+	private SerieLikeEnum liked;
 
 	public MovieLikeDTO() {
 		super();
 	}
 
-	public MovieLikeEnum getLiked() {
+	public SerieLikeEnum getLiked() {
 		return liked;
 	}
 
-	public void setLiked(MovieLikeEnum liked) {
+	public void setLiked(SerieLikeEnum liked) {
 		this.liked = liked;
 	}
 

@@ -1,0 +1,66 @@
+version: "3.9"
+services:
+    
+    db-netflix-user:
+        image: postgres:12-alpine
+        container_name: netflix-user-pg12
+        ports:
+        - "5432:5432"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+        - POSTGRES_DB=db_netflix_user
+        - POSTGRES_PASSWORD=root
+        mem_limit: 512m
+
+    db-netflix-category:
+        image: postgres:12-alpine
+        container_name: netflix-category-pg12
+        ports:
+        - "5433:5432"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+        - POSTGRES_DB=db_netflix_category
+        - POSTGRES_PASSWORD=root
+        mem_limit: 512m
+
+    db-netflix-movies:
+        image: postgres:12-alpine
+        container_name: netflix-movies-pg12
+        ports:
+        - "5434:5432"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+        - POSTGRES_DB=db_netflix_movies
+        - POSTGRES_PASSWORD=root
+        mem_limit: 512m
+
+    db-netflix-series:
+        image: postgres:12-alpine
+        container_name: netflix-series-pg12
+        ports:
+        - "5435:5432"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+        - POSTGRES_DB=db_netflix_series
+        - POSTGRES_PASSWORD=root
+        mem_limit: 512m
+
+    db-netflix-help-desk:
+        image: postgres:12-alpine
+        container_name: netflix-hel-desk-pg12
+        ports:
+        - "5436:5432"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+        - POSTGRES_DB=netflix_help_desk
+        - POSTGRES_PASSWORD=root
+        mem_limit: 512m
+
+networks:
+  76aoj-netflix-net:
+    driver: bridge
