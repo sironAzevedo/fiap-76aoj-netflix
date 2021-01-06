@@ -60,6 +60,18 @@ services:
         - POSTGRES_DB=netflix_help_desk
         - POSTGRES_PASSWORD=root
         mem_limit: 512m
+    
+    netflix-configuration-server:
+        container_name: netflix-config-server
+        build: 
+          context: ./netflix-config-server/
+          dockerfile: ./Dockerfile
+        ports:
+          - "8888:8888"
+        networks:
+          - 76aoj-netflix-net
+        mem_limit: 512m
+            
 
 networks:
   76aoj-netflix-net:

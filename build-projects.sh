@@ -36,10 +36,6 @@ echo "############## Building Netflix Series ##############"
 cd $WORKDIR/netflix-series
 mvn clean package -DskipTests=true
 
-echo "############## Building Netflix Series ##############"
-cd $WORKDIR/netflix-series
-mvn clean package -DskipTests=true
-
 echo "############## Building Netflix Help Desk ##############"
 cd $WORKDIR/netflix-help-desk
 mvn clean package -DskipTests=true
