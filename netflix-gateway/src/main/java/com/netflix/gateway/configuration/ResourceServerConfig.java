@@ -40,7 +40,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private static final String[] CLIENT = { 
 			"/netflix-category/category/**",
 			"/netflix-movies/movies/**",
-			"/netflix-series/series/**"
+			"/netflix-series/series/**",
+			"/netflix-likes/likes/**"
 	};
 
 	private static final String[] ADMIN = { 

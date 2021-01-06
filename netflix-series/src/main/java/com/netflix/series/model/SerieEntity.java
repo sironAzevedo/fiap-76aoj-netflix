@@ -42,14 +42,14 @@ public class SerieEntity implements Serializable {
 	@NotNull
 	@Column(name = "RELEASE_DATE")
 	private Date releaseDate;
-	
+
 	@NotNull
 	@Column(name = "SEASON")
 	private Long season;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_serie", nullable = false)
-    private List<SerieKeyWordEntity> keywords;
+	@JoinColumn(name = "id_serie", nullable = false)
+	private List<SerieKeyWordEntity> keywords;
 
 	public SerieEntity() {
 		super();
@@ -86,7 +86,7 @@ public class SerieEntity implements Serializable {
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-	
+
 	public Long getSeason() {
 		return season;
 	}
@@ -123,5 +123,5 @@ public class SerieEntity implements Serializable {
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
-	} 
+	}
 }

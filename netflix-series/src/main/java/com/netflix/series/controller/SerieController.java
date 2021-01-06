@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +32,10 @@ public class SerieController {
 	private ISerieService service;
 
 	@ResponseBody
-	@GetMapping("/{id_serie}")
+	@GetMapping("/detail")
 	@ResponseStatus(value = HttpStatus.OK)
-	public SerieDTO detail(@PathVariable final Long id_serie) {
-		return service.detail(id_serie);
+	public SerieDTO detail(@RequestParam(value = "serie") Long serie) {
+		return service.detail(serie);
 	}
 
 	@ResponseBody
@@ -67,12 +66,12 @@ public class SerieController {
 		return service.watched(user, pageable);
 	}
 	
-	@ResponseBody
-	@PostMapping("/like")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void like(@Valid @RequestBody SerieLikeDTO dto) {
-		service.like(dto);
-	}
+//	@ResponseBody
+//	@PostMapping("/like")
+//	@ResponseStatus(value = HttpStatus.OK)
+//	public void like(@Valid @RequestBody SerieLikeDTO dto) {
+//		service.like(dto);
+//	}
 	
 	@ResponseBody
 	@GetMapping("/likes")

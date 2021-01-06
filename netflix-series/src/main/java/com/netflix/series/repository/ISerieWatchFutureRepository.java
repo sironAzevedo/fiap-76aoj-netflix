@@ -15,10 +15,10 @@ import com.netflix.series.model.SerieWatchFutureEntity;
 @Repository
 public interface ISerieWatchFutureRepository extends JpaRepository<SerieWatchFutureEntity, SerieUserEntityPK> {
 
-	@Query("SELECT m FROM MovieWatchFutureEntity m WHERE m.pk.user = :user")
+	@Query("SELECT m FROM SerieWatchFutureEntity m WHERE m.pk.user = :user")
 	List<SerieWatchFutureEntity> findByUser(@Param("user") Long user);
 	
-	@Query("SELECT m FROM MovieWatchFutureEntity m WHERE m.pk.user = :user AND m.pk.movie = :movie")
-	Optional<SerieWatchFutureEntity> findByUserAndSerie(@Param("user") Long user, @Param("movie") SerieEntity movie);
+	@Query("SELECT m FROM SerieWatchFutureEntity m WHERE m.pk.user = :user AND m.pk.serie = :serie")
+	Optional<SerieWatchFutureEntity> findByUserAndSerie(@Param("user") Long user, @Param("serie") SerieEntity serie);
 
 }

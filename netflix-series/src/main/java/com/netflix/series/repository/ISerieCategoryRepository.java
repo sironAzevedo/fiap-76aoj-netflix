@@ -18,6 +18,6 @@ public interface ISerieCategoryRepository extends JpaRepository<SerieCategoryEnt
 	List<SerieCategoryEntity> getSerieByCategory(@Param("category") Long category);
 
 	
-	@Query("SELECT m FROM MovieCategoryEntity m WHERE m.pk.movie = :movie")
+	@Query("SELECT m FROM SerieCategoryEntity m WHERE m.pk.serie = :serie")
 	List<SerieCategoryEntity> getCategoryBySerie(@Param("serie") SerieEntity serie); 
 }

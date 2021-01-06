@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +32,10 @@ public class MovieController {
 	private IMovieService service;
 
 	@ResponseBody
-	@GetMapping("/{id_movie}")
+	@GetMapping("/detail")
 	@ResponseStatus(value = HttpStatus.OK)
-	public MovieDTO detail(@PathVariable final Long id_movie) {
-		return service.detail(id_movie);
+	public MovieDTO detail(@RequestParam(value = "movie") Long movie) {
+		return service.detail(movie);
 	}
 
 	@ResponseBody

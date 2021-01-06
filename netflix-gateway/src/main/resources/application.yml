@@ -26,6 +26,9 @@ zuul:  routes:    category:
     help-desk:
       service-id: netflix-help-desk
       path: /netflix-help-desk/**
+    likes:
+      service-id: netflix-likes
+      path: /netflix-likes/**
     authorization:
       service-id: netflix-authorization
       path: /netflix-authorization/**

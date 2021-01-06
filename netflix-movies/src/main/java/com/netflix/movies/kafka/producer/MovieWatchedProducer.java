@@ -15,10 +15,10 @@ public class MovieWatchedProducer {
     private static final String TOPIC = "remove_movie_watch_future";
 
     @Autowired
-    private KafkaTemplate<String, MovieWatchedDTO> userCreatedKafkaTemplate;
+    private KafkaTemplate<String, MovieWatchedDTO> movieWatchedKafkaTemplate;
 
     public void sendMessage(MovieWatchedDTO movie) {
         logger.info(String.format("Producing %s, movie: %s", TOPIC, movie.toString()));
-        this.userCreatedKafkaTemplate.send(TOPIC, movie);
+        this.movieWatchedKafkaTemplate.send(TOPIC, movie);
     }
 }

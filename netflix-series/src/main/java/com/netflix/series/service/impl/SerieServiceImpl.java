@@ -23,6 +23,7 @@ import com.netflix.series.feignClients.CategoryFeignClient;
 import com.netflix.series.feignClients.UserFeignClient;
 import com.netflix.series.handler.exception.NotFoundException;
 import com.netflix.series.handler.exception.UserException;
+import com.netflix.series.kafka.producer.SerieWatchedProducer;
 import com.netflix.series.model.SerieEntity;
 import com.netflix.series.model.SerieLikeEntity;
 import com.netflix.series.model.SerieWatchFutureEntity;
@@ -74,8 +75,8 @@ public class SerieServiceImpl implements ISerieService {
 	@Autowired
     private ISerieWatchedRepository serieWatchedRepo;
 	
-//	@Autowired
-//	private SerieWatchedProducer producer;
+	@Autowired
+	private SerieWatchedProducer producer;
 	
 	@Override
 	public Page<SerieDTO> byCategory(Long idCategory, Pageable pageable) {
@@ -117,7 +118,7 @@ public class SerieServiceImpl implements ISerieService {
 		findById(dto.getSerie().getId());
 		SerieWatchedEntity entity = convert.toSerieWatched(dto, getUser(dto.getUser()).getId());
 		serieWatchedRepo.save(entity);
-//		producer.sendMessage(dto);
+		producer.sendMessage(dto);
 	}
 
 	@Override

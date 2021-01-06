@@ -3,7 +3,7 @@
 INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('The 100', 'Quase 100 anos após um apocalipse nuclear na Terra, os sobreviventes de uma estação espacial precisam buscar recursos para garantir a sobrevivência.', '2014-01-01', 6);
 INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('O Mundo Sombrio de Sabrina', 'Bruxa e também mortal, a jovem Sabrina Spellman fica dividida entre a vida normal de adolescente e o legado de sua família feiticeira.', '2018-01-01', 4);
 INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('Breaking Bad', 'Ao saber que tem câncer, um professor passa a fabricar metanfetamina pelo futuro da família, mudando o destino de todos.', '2008-01-01', 5);
-INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('Narcos', 'A notória série sobre o tráfico é baseada na história real de violência e poder dos cartéis colombianos.', '20515-01-01', 3);
+INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('Narcos', 'A notória série sobre o tráfico é baseada na história real de violência e poder dos cartéis colombianos.', '2015-01-01', 3);
 
 --INSERT SERIE_CATEGORIA
 INSERT INTO tb_serie_category (id_serie, id_category) VALUES (1, 24);

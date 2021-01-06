@@ -13,7 +13,7 @@ import com.netflix.series.model.SerieWatchedEntity;
 @Repository
 public interface ISerieWatchedRepository extends JpaRepository<SerieWatchedEntity, SerieUserEntityPK> {
 
-	@Query("SELECT m FROM MovieWatchedEntity m WHERE m.pk.user = :user")
+	@Query("SELECT m FROM SerieWatchedEntity m WHERE m.pk.user = :user")
 	List<SerieWatchedEntity> findByUser(@Param("user") Long user);
 
 }

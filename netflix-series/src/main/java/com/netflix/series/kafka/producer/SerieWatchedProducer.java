@@ -12,13 +12,13 @@ import com.netflix.series.model.dto.SerieWatchedDTO;
 public class SerieWatchedProducer {
 
 	private static final Logger logger = LoggerFactory.getLogger(SerieWatchedProducer.class);
-    private static final String TOPIC = "remove_movie_watch_future";
+    private static final String TOPIC = "remove_serie_watch_future";
 
     @Autowired
-    private KafkaTemplate<String, SerieWatchedDTO> watchedKafkaTemplate;
+    private KafkaTemplate<String, SerieWatchedDTO> serieWatchedKafkaTemplate;
 
-    public void sendMessage(SerieWatchedDTO movie) {
-        logger.info(String.format("Producing %s, movie: %s", TOPIC, movie.toString()));
-        this.watchedKafkaTemplate.send(TOPIC, movie);
+    public void sendMessage(SerieWatchedDTO serie) {
+        logger.info(String.format("Producing %s, serie: %s", TOPIC, serie.toString()));
+        this.serieWatchedKafkaTemplate.send(TOPIC, serie);
     }
 }

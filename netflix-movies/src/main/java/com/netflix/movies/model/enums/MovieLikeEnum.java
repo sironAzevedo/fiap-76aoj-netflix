@@ -1,6 +1,6 @@
 package com.netflix.movies.model.enums;
 
-public enum SerieLikeEnum {
+public enum MovieLikeEnum {
 	YES, 
 	NO
 }
