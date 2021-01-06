@@ -51,27 +51,33 @@ services:
 
     db-netflix-help-desk:
         image: postgres:12-alpine
-        container_name: netflix-hel-desk-pg12
+        container_name: netflix-help-desk-pg12
         ports:
         - "5436:5432"
         networks:
         - 76aoj-netflix-net
         environment:
-        - POSTGRES_DB=netflix_help_desk
+        - POSTGRES_DB=db_netflix_help_desk
         - POSTGRES_PASSWORD=root
         mem_limit: 512m
     
-    netflix-configuration-server:
-        container_name: netflix-config-server
-        build: 
-          context: ./netflix-config-server/
-          dockerfile: ./Dockerfile
+    netflix-zookeeper:        
+        image: wurstmeister/zookeeper
+        container_name: netflix-zookeeper
         ports:
-          - "8888:8888"
+        - "2181:2181"
         networks:
-          - 76aoj-netflix-net
-        mem_limit: 512m
-            
+        - 76aoj-netflix-net
+    netflix-kafka:        
+        image: wurstmeister/kafka
+        container_name: netflix-kafka
+        ports:
+        - "9092:9092"
+        networks:
+        - 76aoj-netflix-net
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+            KAFKA_ZOOKEEPER_CONNECT: netflix-zookeeper:2181
 
 networks:
   76aoj-netflix-net:
