@@ -66,13 +66,6 @@ public class SerieController {
 		return service.watched(user, pageable);
 	}
 	
-//	@ResponseBody
-//	@PostMapping("/like")
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public void like(@Valid @RequestBody SerieLikeDTO dto) {
-//		service.like(dto);
-//	}
-	
 	@ResponseBody
 	@GetMapping("/likes")
 	@ResponseStatus(value = HttpStatus.OK)

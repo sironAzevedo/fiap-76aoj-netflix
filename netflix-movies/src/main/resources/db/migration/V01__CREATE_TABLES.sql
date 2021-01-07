@@ -9,16 +9,17 @@ CREATE TABLE IF NOT EXISTS tb_movie
 
 CREATE TABLE IF NOT EXISTS tb_movie_category
 (
+	ID          serial NOT NULL,
     id_movie    BIGINT NOT NULL,
     id_category BIGINT NOT NULL,
 
-	CONSTRAINT pk_movie_category primary key (id_movie, id_category),
+	CONSTRAINT pk_movie_category primary key (ID),
     CONSTRAINT fk1_movie_category FOREIGN KEY (id_movie) REFERENCES tb_movie (ID)
 );
 
 CREATE TABLE IF NOT EXISTS tb_movie_keyword
 (
-	ID serial NOT NULL,
+	ID       serial NOT NULL,
 	id_movie BIGINT NOT NULL,
 	key_word VARCHAR (256) NOT NULL,
 	

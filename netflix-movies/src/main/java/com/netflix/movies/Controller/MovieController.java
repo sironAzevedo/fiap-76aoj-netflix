@@ -67,13 +67,6 @@ public class MovieController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/like")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void like(@Valid @RequestBody MovieLikeDTO dto) {
-		service.like(dto);
-	}
-	
-	@ResponseBody
 	@GetMapping("/likes")
 	@ResponseStatus(value = HttpStatus.OK)
     public Page<MovieLikeDTO> likes(@RequestParam(value = "user") String user, Pageable pageable) {

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -24,6 +26,10 @@ public class MovieKeyWordEntity implements Serializable {
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne
+    @JoinColumn(name="id_movie", nullable=false)
+    private MovieEntity movie;
 
 	@NotNull
 	@Column(name = "key_word")
@@ -39,6 +45,14 @@ public class MovieKeyWordEntity implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public MovieEntity getMovie() {
+		return movie;
+	}
+
+	public void setMovie(MovieEntity movie) {
+		this.movie = movie;
 	}
 
 	public String getKeyword() {
