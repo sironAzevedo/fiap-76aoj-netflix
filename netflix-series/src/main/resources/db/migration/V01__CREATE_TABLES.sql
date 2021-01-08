@@ -10,16 +10,17 @@ CREATE TABLE IF NOT EXISTS tb_serie
 
 CREATE TABLE IF NOT EXISTS tb_serie_category
 (
+	ID          serial NOT NULL,
     id_serie    BIGINT NOT NULL,
     id_category BIGINT NOT NULL,
 
-	CONSTRAINT pk_serie_category primary key (id_serie, id_category),
+	CONSTRAINT pk_serie_category primary key (ID),
     CONSTRAINT fk1_serie_category FOREIGN KEY (id_serie) REFERENCES tb_serie (ID)
 );
 
 CREATE TABLE IF NOT EXISTS tb_serie_keyword
 (
-	ID serial NOT NULL,
+	ID 		 serial NOT NULL,
 	id_serie BIGINT NOT NULL,
 	key_word VARCHAR (256) NOT NULL,
 	

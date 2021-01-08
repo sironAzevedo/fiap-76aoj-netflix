@@ -4,20 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.sun.istack.NotNull;
 
@@ -47,9 +47,13 @@ public class SerieEntity implements Serializable {
 	@Column(name = "SEASON")
 	private Long season;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_serie", nullable = false)
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "serie", fetch = FetchType.EAGER)
 	private List<SerieKeyWordEntity> keywords;
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "serie", fetch = FetchType.EAGER)
+	private List<SerieCategoryEntity> categories;
 
 	public SerieEntity() {
 		super();
@@ -101,6 +105,14 @@ public class SerieEntity implements Serializable {
 
 	public void setKeywords(List<SerieKeyWordEntity> keywords) {
 		this.keywords = keywords;
+	}
+
+	public List<SerieCategoryEntity> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<SerieCategoryEntity> categories) {
+		this.categories = categories;
 	}
 
 	@Override

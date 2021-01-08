@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.netflix.movies.converter.MovieConverter;
 import com.netflix.movies.feignClients.CategoryClient;
-import com.netflix.movies.feignClients.UserFeignClient;
+import com.netflix.movies.feignClients.UserClient;
 import com.netflix.movies.handler.exception.NotFoundException;
 import com.netflix.movies.handler.exception.UserException;
 import com.netflix.movies.kafka.producer.MovieWatchedProducer;
@@ -49,7 +49,7 @@ public class MovieServiceImpl implements IMovieService {
 	private MovieConverter convert;
 	
 	@Autowired
-	private UserFeignClient userClient;
+	private UserClient userClient;
 	
 	@Autowired
 	private IMovieCategoryRepository mcRepo;
@@ -182,10 +182,6 @@ public class MovieServiceImpl implements IMovieService {
 	}
 	
 	private UserDTO getUser(String user) {
-		UserDTO u = userClient.findByEmail(user);
-		if (u == null) {
-			throw new UserException("User not found");
-		}
-		return u;
+		return Optional.ofNullable(userClient.findByEmail(user)).orElseThrow(() -> new UserException("User not found"));
 	}
 }

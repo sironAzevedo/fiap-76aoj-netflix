@@ -20,5 +20,4 @@ public interface ISerieWatchFutureRepository extends JpaRepository<SerieWatchFut
 	
 	@Query("SELECT m FROM SerieWatchFutureEntity m WHERE m.pk.user = :user AND m.pk.serie = :serie")
 	Optional<SerieWatchFutureEntity> findByUserAndSerie(@Param("user") Long user, @Param("serie") SerieEntity serie);
-
 }

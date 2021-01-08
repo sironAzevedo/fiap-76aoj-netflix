@@ -33,7 +33,6 @@ public class LikeServiceImpl implements ILikeService {
 
 	@Override
 	public void serieLike(String emailUser, Long id_serie, String like) {
-		UserDTO user = getUser(emailUser);
 		SerieDTO serie = serieClient.detail(id_serie);
 
 		if (serie == null) {
@@ -41,7 +40,7 @@ public class LikeServiceImpl implements ILikeService {
 		}
 
 		SerieLikeDTO dto = new SerieLikeDTO();
-		dto.setUser(user.getEmail());
+		dto.setUser(getUser(emailUser).getEmail());
 		dto.setSerie(serie);
 		dto.setLiked(like.toUpperCase());
 		producer.sendSerieLike(dto);

@@ -1,10 +1,15 @@
 package com.netflix.series.converter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.netflix.series.feignClients.CategoryClient;
 import com.netflix.series.model.SerieEntity;
 import com.netflix.series.model.SerieKeyWordEntity;
 import com.netflix.series.model.SerieLikeEntity;
@@ -18,6 +23,8 @@ import com.netflix.series.model.dto.SerieWatchedDTO;
 
 @Mapper(componentModel = "spring")
 public abstract class SerieConverter {
+	@Autowired
+	private CategoryClient categoryClient;
 
 	public SerieDTO toDTO(SerieEntity entity) {
 		SerieDTO dto = new SerieDTO();
@@ -31,6 +38,11 @@ public abstract class SerieConverter {
 				.stream()
 				.map(SerieKeyWordEntity::getKeyword)
 				.collect(Collectors.toList()));
+		
+		
+		List<String> categories = new ArrayList<>();
+		entity.getCategories().forEach(c -> Optional.ofNullable(categoryClient.category(c.getCategory())).ifPresent(r -> categories.add(r.getName())));		
+		dto.setCategories(categories);		
 		return dto;
 	}
 	
