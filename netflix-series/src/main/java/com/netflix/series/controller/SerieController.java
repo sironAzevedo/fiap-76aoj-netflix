@@ -30,6 +30,20 @@ public class SerieController {
 
 	@Autowired
 	private ISerieService service;
+	
+	@PostMapping
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.OK)
+	public void create(@Valid @RequestBody SerieDTO dto) {
+		service.create(dto);
+	}
+	
+	@GetMapping
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.OK)
+	public Page<SerieDTO> findAll(Pageable pageable) {
+		return service.findAll(pageable);
+	}
 
 	@ResponseBody
 	@GetMapping("/detail")

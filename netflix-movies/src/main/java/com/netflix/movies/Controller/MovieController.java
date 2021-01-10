@@ -31,11 +31,27 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(value = "/movies")
-@ApiResponses(value = {@ApiResponse(code = 500, message = "Internal Server Error", response = StandardError.class)})
+@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Server Error", response = StandardError.class) })
 public class MovieController {
 
 	@Autowired
 	private IMovieService service;
+	
+	@PostMapping
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.OK)
+	@ApiOperation(value = "Save movie")
+	public void create(@Valid @RequestBody MovieDTO dto) {
+		service.create(dto);
+	}
+
+	@GetMapping
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.OK)
+	@ApiOperation(value = "Find All")
+	public Page<MovieDTO> findAll(Pageable pageable) {
+		return service.findAll(pageable);
+	}
 
 	@ResponseBody
 	@GetMapping("/detail")
@@ -76,14 +92,14 @@ public class MovieController {
 	public Page<MovieWatchedDTO> movieWatched(@RequestParam(value = "user") String user, Pageable pageable) {
 		return service.watched(user, pageable);
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/likes")
 	@ResponseStatus(value = HttpStatus.OK)
-    public Page<MovieLikeDTO> likes(@RequestParam(value = "user") String user, Pageable pageable) {
-        return service.likes(user, pageable);
-    }
-	
+	public Page<MovieLikeDTO> likes(@RequestParam(value = "user") String user, Pageable pageable) {
+		return service.likes(user, pageable);
+	}
+
 	@ResponseBody
 	@PostMapping("/future")
 	@ApiOperation(value = "Save movie watch future")
@@ -91,20 +107,20 @@ public class MovieController {
 	public void future(@Valid @RequestBody MovieUserDTO dto) {
 		service.watchFuture(dto.getUser(), dto.getMovie().getId());
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/futures")
 	@ApiOperation(value = "Search movie watch future")
 	@ResponseStatus(value = HttpStatus.OK)
-    public Page<MovieUserDTO> futures(@RequestParam(value = "user") String user, Pageable pageable) {
-        return service.watchFuture(user, pageable);
-    }
-	
+	public Page<MovieUserDTO> futures(@RequestParam(value = "user") String user, Pageable pageable) {
+		return service.watchFuture(user, pageable);
+	}
+
 	@ResponseBody
 	@GetMapping("/top/by-category")
 	@ApiOperation(value = "Search top movie by category")
 	@ResponseStatus(value = HttpStatus.OK)
-    public List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable) {
-        return service.getTopMovieByCategory(pageable);
-    }
+	public List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable) {
+		return service.getTopMovieByCategory(pageable);
+	}
 }

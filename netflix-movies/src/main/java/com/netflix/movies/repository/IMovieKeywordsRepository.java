@@ -6,11 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.netflix.movies.model.MovieEntity;
+import com.netflix.movies.model.MovieKeyWordEntity;
 
 @Repository
-public interface IMovieRepository extends JpaRepository<MovieEntity, Long> {
+public interface IMovieKeywordsRepository extends JpaRepository<MovieKeyWordEntity, Long> {
 
-	List<MovieEntity> findBykeywordsKeywordContainingIgnoreCase(String word);
-
-	List<MovieEntity> findByCategoriesCategory(final Long category);
+	List<MovieKeyWordEntity> findByMovie(MovieEntity movie);
 }

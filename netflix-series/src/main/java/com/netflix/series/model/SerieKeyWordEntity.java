@@ -46,6 +46,14 @@ public class SerieKeyWordEntity implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public SerieEntity getSerie() {
+		return serie;
+	}
+
+	public void setSerie(SerieEntity serie) {
+		this.serie = serie;
+	}
 
 	public String getKeyword() {
 		return keyword;

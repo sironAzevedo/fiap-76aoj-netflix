@@ -26,8 +26,27 @@ public abstract class MovieConverter {
 	
 	@Autowired
 	private CategoryClient categoryClient;
+	
+	
+	public MovieEntity toEntity(MovieDTO dto) {
+		MovieEntity movie = new MovieEntity();
+		movie.setId(dto.getId());
+		movie.setTitle(dto.getTitle());
+		movie.setSummary(dto.getSummary());
+		movie.setReleaseDate(dto.getReleaseDate());
+		return movie;
+	}
 
 	public MovieDTO toDTO(MovieEntity entity) {
+		MovieDTO dto = new MovieDTO();
+		dto.setId(entity.getId());
+		dto.setTitle(entity.getTitle());
+		dto.setSummary(entity.getSummary());
+		dto.setReleaseDate(entity.getReleaseDate());
+		return dto;
+	}
+	
+	public MovieDTO toDetail(MovieEntity entity) {
 		MovieDTO dto = new MovieDTO();
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());
@@ -46,7 +65,7 @@ public abstract class MovieConverter {
 		
 		dto.setCategories(categories);
 		return dto;
-	}
+	} 
 	
 	public MovieWatchedDTO toDTO(MovieWatchedEntity entity) {
 		MovieWatchedDTO dto = new MovieWatchedDTO();

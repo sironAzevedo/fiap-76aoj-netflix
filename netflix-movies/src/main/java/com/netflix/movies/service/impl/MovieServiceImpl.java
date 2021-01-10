@@ -22,7 +22,9 @@ import com.netflix.movies.feignClients.UserClient;
 import com.netflix.movies.handler.exception.NotFoundException;
 import com.netflix.movies.handler.exception.UserException;
 import com.netflix.movies.kafka.producer.MovieWatchedProducer;
+import com.netflix.movies.model.MovieCategoryEntity;
 import com.netflix.movies.model.MovieEntity;
+import com.netflix.movies.model.MovieKeyWordEntity;
 import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.model.dto.MovieLikeDTO;
 import com.netflix.movies.model.dto.MovieUserDTO;
@@ -32,6 +34,7 @@ import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
 import com.netflix.movies.model.dto.TopMovieDTO;
 import com.netflix.movies.model.dto.UserDTO;
 import com.netflix.movies.repository.IMovieCategoryRepository;
+import com.netflix.movies.repository.IMovieKeywordsRepository;
 import com.netflix.movies.repository.IMovieLikeRepository;
 import com.netflix.movies.repository.IMovieRepository;
 import com.netflix.movies.repository.IMovieWatchFutureRepository;
@@ -46,13 +49,16 @@ public class MovieServiceImpl implements IMovieService {
 	private IMovieRepository repo;
 	
 	@Autowired
+	private IMovieCategoryRepository mcRepo;
+	
+	@Autowired
+	private IMovieKeywordsRepository keyRepo;
+	
+	@Autowired
 	private MovieConverter convert;
 	
 	@Autowired
 	private UserClient userClient;
-	
-	@Autowired
-	private IMovieCategoryRepository mcRepo;
 	
 	@Autowired
 	private IMovieCategoryCustomRepository mcCustomRepo;
@@ -73,16 +79,52 @@ public class MovieServiceImpl implements IMovieService {
 	private MovieWatchedProducer producer;
 	
 	@Override
-	public Page<MovieDTO> byCategory(Long idCategory, Pageable pageable) {
-		List<MovieDTO> movies = new ArrayList<>();
-		mcRepo.findByCategory(idCategory).forEach(mc -> movies.add(convert.toDTO(mc.getMovie())));
-		return new PageImpl<>(movies, pageable, movies.size());
+	public void create(MovieDTO dto) {
+		MovieEntity movie = repo.save(convert.toEntity(dto));
+		dto.getKeywords().stream()
+		.filter(i1 -> {//Esse filtro estar removendo as palavras da lista de palavras do DTO que já estão cadastrada no banco de dados para o movie
+			return !keyRepo.findByMovie(movie).stream()
+					.map(MovieKeyWordEntity::getKeyword)
+					.anyMatch(i2 -> i2.equalsIgnoreCase(i1));
+		})
+		.forEach(w -> {
+			MovieKeyWordEntity key = new MovieKeyWordEntity();
+			key.setKeyword(w);
+			key.setMovie(movie);
+			keyRepo.save(key);
+		});
+	
+	dto.getCategories().stream()
+		.filter(i1 -> {//Esse filtro estar removendo as categorias da lista de categorias do DTO que já estão cadastrada no banco de dados para o movie
+			return !mcRepo.findByMovie(movie).stream()
+					.map(MovieCategoryEntity::getCategory)
+					.anyMatch(i2 -> i2.equals(Long.valueOf(i1)));
+		})
+		.forEach(c -> {
+			Optional.ofNullable(categoryClient.category(Long.valueOf(c))).ifPresent(r -> {
+				MovieCategoryEntity mc = new MovieCategoryEntity();
+				mc.setMovie(movie);
+				mc.setCategory(r.getId());
+				mcRepo.save(mc);
+			});
+		});
 	}
-
+	
+	@Override
+	public Page<MovieDTO> findAll(Pageable pageable) {
+		return repo.findAll(pageable).map(convert::toDTO);
+	}
+	
 	@Override
 	public MovieDTO detail(Long id_movie) {
-		return repo.findById(id_movie).map(convert::toDTO).get();
+		return repo.findById(id_movie).map(convert::toDetail).get();
 	}
+	
+	@Override
+	public Page<MovieDTO> byCategory(Long idCategory, Pageable pageable) {
+		List<MovieDTO> movies = repo.findByCategoriesCategory(idCategory).stream().map(convert::toDTO).collect(Collectors.toList());
+		return new PageImpl<>(movies, pageable, movies.size());
+	} 
 
 	@Override
 	public Page<MovieDTO> getKeyword(String word, Pageable pageable) {

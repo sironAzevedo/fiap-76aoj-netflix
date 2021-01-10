@@ -22,7 +22,9 @@ import com.netflix.series.feignClients.UserClient;
 import com.netflix.series.handler.exception.NotFoundException;
 import com.netflix.series.handler.exception.UserException;
 import com.netflix.series.kafka.producer.SerieWatchedProducer;
+import com.netflix.series.model.SerieCategoryEntity;
 import com.netflix.series.model.SerieEntity;
+import com.netflix.series.model.SerieKeyWordEntity;
 import com.netflix.series.model.dto.SerieDTO;
 import com.netflix.series.model.dto.SerieLikeDTO;
 import com.netflix.series.model.dto.SerieUserDTO;
@@ -32,6 +34,7 @@ import com.netflix.series.model.dto.TopSerieCategoryResponseDTO;
 import com.netflix.series.model.dto.TopSerieDTO;
 import com.netflix.series.model.dto.UserDTO;
 import com.netflix.series.repository.ISerieCategoryRepository;
+import com.netflix.series.repository.ISerieKeywordsRepository;
 import com.netflix.series.repository.ISerieLikeRepository;
 import com.netflix.series.repository.ISerieRepository;
 import com.netflix.series.repository.ISerieWatchFutureRepository;
@@ -46,13 +49,16 @@ public class SerieServiceImpl implements ISerieService {
 	private ISerieRepository repo;
 	
 	@Autowired
+	private ISerieCategoryRepository mcRepo;
+	
+	@Autowired
+	private ISerieKeywordsRepository keyRepo;
+	
+	@Autowired
 	private SerieConverter convert;
 	
 	@Autowired
 	private UserClient userClient;
-	
-	@Autowired
-	private ISerieCategoryRepository mcRepo;
 	
 	@Autowired
 	private ISerieCategoryCustomRepository mcCustomRepo;
@@ -71,17 +77,53 @@ public class SerieServiceImpl implements ISerieService {
 	
 	@Autowired
 	private SerieWatchedProducer producer;
-	
+
 	@Override
-	public Page<SerieDTO> byCategory(Long idCategory, Pageable pageable) {
-		List<SerieDTO> series = new ArrayList<>();
-		mcRepo.findByCategory(idCategory).forEach(mc -> series.add(convert.toDTO(mc.getSerie())));
-		return new PageImpl<>(series, pageable, series.size());
+	public void create(SerieDTO dto) {
+		SerieEntity serie = repo.save(convert.toEntity(dto));
+		dto.getKeywords().stream()
+		.filter(i1 -> {//Esse filtro estar removendo as palavras da lista de palavras do DTO que já estão cadastrada no banco de dados para a serie
+			return !keyRepo.findBySerie(serie).stream()
+					.map(SerieKeyWordEntity::getKeyword)
+					.anyMatch(i2 -> i2.equalsIgnoreCase(i1));
+		})
+		.forEach(w -> {
+			SerieKeyWordEntity key = new SerieKeyWordEntity();
+			key.setKeyword(w);
+			key.setSerie(serie);
+			keyRepo.save(key);
+		});
+	
+		dto.getCategories().stream()
+		.filter(i1 -> {//Esse filtro estar removendo as categorias da lista de categorias do DTO que já estão cadastrada no banco de dados para a serie
+			return !mcRepo.findBySerie(serie).stream()
+					.map(SerieCategoryEntity::getCategory)
+					.anyMatch(i2 -> i2.equals(Long.valueOf(i1)));
+		})
+		.forEach(c -> {
+			Optional.ofNullable(categoryClient.category(Long.valueOf(c))).ifPresent(r -> {
+				SerieCategoryEntity mc = new SerieCategoryEntity();
+				mc.setSerie(serie);
+				mc.setCategory(r.getId());
+				mcRepo.save(mc);
+			});
+		});
 	}
 
 	@Override
+	public Page<SerieDTO> findAll(Pageable pageable) {
+		return repo.findAll(pageable).map(convert::toDTO);
+	}
+	
+	@Override
 	public SerieDTO detail(Long id_Serie) {
-		return repo.findById(id_Serie).map(convert::toDTO).get();
+		return repo.findById(id_Serie).map(convert::toDetail).get();
+	}
+	
+	@Override
+	public Page<SerieDTO> byCategory(Long idCategory, Pageable pageable) {
+		List<SerieDTO> series = repo.findByCategoriesCategory(idCategory).stream().map(convert::toDTO).collect(Collectors.toList());
+		return new PageImpl<>(series, pageable, series.size());
 	}
 
 	@Override

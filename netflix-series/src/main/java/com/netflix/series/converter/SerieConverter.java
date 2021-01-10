@@ -25,8 +25,28 @@ import com.netflix.series.model.dto.SerieWatchedDTO;
 public abstract class SerieConverter {
 	@Autowired
 	private CategoryClient categoryClient;
+	
+	public SerieEntity toEntity(SerieDTO dto) {
+		SerieEntity entity = new SerieEntity();
+		entity.setId(dto.getId());
+		entity.setTitle(dto.getTitle());
+		entity.setSummary(dto.getSummary());
+		entity.setReleaseDate(dto.getReleaseDate());
+		entity.setSeason(dto.getSeason());
+		return entity;
+	}
 
 	public SerieDTO toDTO(SerieEntity entity) {
+		SerieDTO dto = new SerieDTO();
+		dto.setId(entity.getId());
+		dto.setTitle(entity.getTitle());
+		dto.setSummary(entity.getSummary());
+		dto.setReleaseDate(entity.getReleaseDate());
+		dto.setSeason(entity.getSeason());
+		return dto;
+	}
+	
+	public SerieDTO toDetail(SerieEntity entity) {
 		SerieDTO dto = new SerieDTO();
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());

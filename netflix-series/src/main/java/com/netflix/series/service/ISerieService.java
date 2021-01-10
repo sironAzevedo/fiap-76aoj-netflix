@@ -12,10 +12,14 @@ import com.netflix.series.model.dto.SerieWatchedDTO;
 import com.netflix.series.model.dto.TopSerieCategoryResponseDTO;
 
 public interface ISerieService {
-
-	Page<SerieDTO> byCategory(Long idCategory, Pageable pageable);
+	
+	void create(SerieDTO dto);
+	
+	Page<SerieDTO> findAll(Pageable pageable);
 
 	SerieDTO detail(Long id_serie);
+
+	Page<SerieDTO> byCategory(Long idCategory, Pageable pageable);
 
 	Page<SerieDTO> getKeyword(String word, Pageable pageable);
 
@@ -28,10 +32,10 @@ public interface ISerieService {
 	Page<SerieLikeDTO> likes(String user, Pageable pageable);
 
 	void watchFuture(String user, Long serie);
-	
-	Page<SerieUserDTO> watchFuture(String user, Pageable pageable);	
-	
+
+	Page<SerieUserDTO> watchFuture(String user, Pageable pageable);
+
 	void deleteWatchFuture(String user, Long serie);
-	
+
 	List<TopSerieCategoryResponseDTO> getTopSerieByCategory(Pageable pageable);
 }

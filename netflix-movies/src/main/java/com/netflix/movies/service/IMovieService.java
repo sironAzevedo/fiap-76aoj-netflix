@@ -12,10 +12,14 @@ import com.netflix.movies.model.dto.MovieWatchedDTO;
 import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
 
 public interface IMovieService {
+	
+	void create(MovieDTO dto);
 
-	Page<MovieDTO> byCategory(Long idCategory, Pageable pageable);
+	Page<MovieDTO> findAll(Pageable pageable);
 
 	MovieDTO detail(Long id_movie);
+
+	Page<MovieDTO> byCategory(Long idCategory, Pageable pageable);
 
 	Page<MovieDTO> getKeyword(String word, Pageable pageable);
 
@@ -28,10 +32,10 @@ public interface IMovieService {
 	Page<MovieLikeDTO> likes(String user, Pageable pageable);
 
 	void watchFuture(String user, Long movie);
-	
-	Page<MovieUserDTO> watchFuture(String user, Pageable pageable);	
-	
+
+	Page<MovieUserDTO> watchFuture(String user, Pageable pageable);
+
 	void deleteWatchFuture(String user, Long movie);
-	
+
 	List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable);
 }

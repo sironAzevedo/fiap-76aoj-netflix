@@ -11,5 +11,6 @@ import com.netflix.series.model.SerieEntity;
 public interface ISerieRepository extends JpaRepository<SerieEntity, Long> {
 
 	List<SerieEntity> findBykeywordsKeywordContainingIgnoreCase(String word);
-	
+
+	List<SerieEntity> findByCategoriesCategory(final Long category);
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -19,9 +19,12 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class MovieDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
 	private Long id;
+	
+	@NotEmpty(message = "Informe o title")
 	private String title;
+	
+	@NotEmpty(message = "Informe o summary")
 	private String summary;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR", timezone = "America/Sao_Paulo")
