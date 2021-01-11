@@ -1,1 +1,94 @@
-# fiap-76aoj-netflix
+# Projeto Netflix Fiap - 76AOJ
+
+## Index
+* [About the project](#about)
+* [Solution Architecture Design](#architecture)
+* [How to run](#run)
+
+
+## About the project <a name="about"></a> :link:
+Esse projeto consiste no desenvolvimento de algumas funcionalidades do ecossistema da Netflix onde utilizando uma implementação baseada em Microserviços utlizando o `Spring Boot (2.3.7.RELEASE)` como parte da solução, pois o mesmo tem tecnologias e soluções já prontas para serem implementadas.
+
+#### Dominio dos serviços
+Nós dividimos o dominio em 7 projetos: `(netflix-user, netflix-authorization, netflix-category, netflix-movies, netflix-series, netflix-likes, netflix-help-desk)`, portanto, em nossas APIs usamos algumas tecnologias e soluções para construir uma arquitetura sólida, segura, rastreável e escalável.
+
+* **Spring Cloud Netflix Eureka:** Usamos o `Netflix Eureka` como uma solução de` Service Discovery` -  que consiste em um dos principais princípios da arquitetura baseada em microservices e o Eureka é o Service Discovery do Netflix que é usado no Server e no Cliente.
+
+
+* **Spring Cloud Config:** É um micro-serviço onde outros micro-serviços consultam as propriedades da própria aplicação.
+
+
+* **Spring Cloud OpenFeign:** Foi utilizado para fazer chamadas entre microsserviços de forma simples para seus clientes. Com ele, também podemos usar o Client Side Load Balancer porque o Feign é integrado ao Ribbon, que por sua vez também é integrado ao Eureka.
+
+
+* **Spring Cloud Sleuth:** Responsável por implementar uma solução de rastreamento distribuído, que nos ajuda a rastrear solicitações entre microsserviços por meio de um ID de correlação, para que possamos rastrear todo o fluxo de uma solicitação que passa vários microsserviços.
+
+
+* **Netflix Hystrix:** Ele disponibiliza mecanismos para controle de falhas e de lentidão nas chamadas para os serviços, que tornam a aplicação mais resiliente à interrupção de chamadas. Evita, assim, a propagação de falhas para os serviços.
+
+
+* **Intelligent Routing (Zuul Proxy):** É uma solução de roteamento dinâmico que possibilita monitoramento, resiliência e segurança para aplicações.
+
+
+* **Spring Cloud OAuth (OAuth2) - Authentication and authorization between microservices:** Configuramos toda a segurança com Spring Security e `Spring Cloud OAuth` e conectamos através de adaptadores de segurança padrão spring com` OAuth2`. O nome de usuário e senha estão na memória para facilitar o teste.
+
+#### Solution Architecture Design <a name="architecture"></a> :link:
+Esse projeto consiste nos desenvolvimento de algumas funcionalidades do ecossistema do Netflix. Utilizando uma implementação baseada em Microserviços.
+
+
+## How to run <a name="run"></a> :wrench:
+Siga as instruções abaixo para construir e executar o projeto de forma simples e fácil, mas fique à vontade para executá-lo da maneira que desejar.
+
+**Tecnologias:**
+
+* Java 11
+* Maven
+* PostgreSQL
+* Postman for testing
+
+
+
+**Executando a aplicação com Docker (Recomendando):**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
