@@ -17,7 +17,7 @@ public class CategoryClientFallback implements CategoryClient {
 
 	@Override
 	public CategoryDTO category(Long id) {
-		log.info("Error API Category: " + ((RuntimeException) cause).getCause().getLocalizedMessage());
+		log.info("Error API Category: " + cause.getLocalizedMessage());
 		return null;
 	}
 }

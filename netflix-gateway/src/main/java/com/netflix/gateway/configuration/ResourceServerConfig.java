@@ -31,10 +31,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			"/netflix-help-desk/ticket/**",
 			"/netflix-user/user",
 			"/h2-console/**",
-			"/swagger-resources/**",
-			"/swagger-ui.html",
-			"/v2/api-docs",
-			"/webjars/**"
+			"/**/swagger-resources/**",
+			"/**/swagger-ui.html",
+			"/**/v2/api-docs",
+			"/**/webjars/**"
 	};
 
 	private static final String[] CLIENT = { 
