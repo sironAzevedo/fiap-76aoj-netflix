@@ -68,6 +68,7 @@ services:
         - "2181:2181"
         networks:
         - 76aoj-netflix-net
+    
     netflix-kafka:        
         image: wurstmeister/kafka
         container_name: netflix-kafka
@@ -78,6 +79,14 @@ services:
         environment:
             KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
             KAFKA_ZOOKEEPER_CONNECT: netflix-zookeeper:2181
+            
+    netflix-zipkin:
+        container_name: netflix-zipkin
+        image: openzipkin/zipkin
+        ports:
+        - "9411:9411"
+        networks:
+        - 76aoj-netflix-net
 
 networks:
   76aoj-netflix-net:

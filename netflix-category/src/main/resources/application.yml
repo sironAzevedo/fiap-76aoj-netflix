@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: netflix-category
+  zipkin:
+    base-url: http://localhost:9411/
   
 eureka:  client:    service-url:      #defaultZone: http://netflix-eureka-server:8761/eureka #Esta url aponta para o container docker
       defaultZone: ${URL_EUREKA_SERVER:http://localhost:8761/eureka}
