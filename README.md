@@ -81,13 +81,17 @@ Fique à vontade para usar seu IDE favorita
 
 Acessar o dashboard do Eureka Server no navegador: http://localhost:8761/   
 Acessar o dashboard do zipkin no navegador: http://localhost:9411/   
-Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): http://localhost:9092/   
+Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): http://localhost:9092/ 
+url-netflix-netflix-gateway: http://localhost:8765
 
 #### Acessando as aplicações pelo Postman:
 
 * **Login**
 
+URL: http://localhost:8765/netflix-authorization/oauth/token
+
 ```
+
 Login Cliente:
 Usuario: teste_create_silva@fiap.com
 Senha: 123
@@ -103,7 +107,12 @@ Password: fiapappnetflix76aoj
 ![body](readme/img/postman-login-body.png)
 
 
+* **Acessando a lista de Filmes**
 
+url-listar-filme: {{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10
+Copiar o token gerado no login e colar na aba de Authorization:
+
+![listar-filme](readme/img/postman-listar-filmes.png)
 
 
 
