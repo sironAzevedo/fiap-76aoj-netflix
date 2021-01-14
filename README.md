@@ -87,12 +87,11 @@ Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/
 
 * **Login**
 
-
-
 ```
 Login Cliente:
 Usuario: teste_create_silva@fiap.com
 Senha: 123
+grant_type: password
 
 Login Aplicação:
 Username: fiapappnetflix
@@ -101,6 +100,7 @@ Password: fiapappnetflix76aoj
 ```
 
 ![authorization](readme/img/postman-login-tela-authorization.png)
+![body](readme/img/postman-login-tela-authorization.png)
 
 
 
