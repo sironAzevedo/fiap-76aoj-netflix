@@ -43,12 +43,109 @@ Siga as instruções abaixo para construir e executar o projeto de forma simples e
 
 * Java 11
 * Maven
-* PostgreSQL
+* PostgreSQL (Recommendo utilizar o Docker)
+* Zookeeper/Kafka (Recommendo utilizar o Docker)
 * Postman for testing
+* Zipkin (Recommendo utilizar o Docker)
+
+**Executando a infra da aplicação com Docker (Recomendando):**
+
+- [Download Docker](https://www.docker.com/products/docker-desktop)
+
+Execute o camando abaixo no terminal de sua preferencia:
+
+Via docker-compose:
+
+Iniciando as aplicações: `docker-compose up -d --build`   
+Parando aplicações: `docker-compose down`   
+Visualizando logs: `docker-compose logs -f`   
+
+
+#### Build and Run
+
+Execute os microsserviços seguindo a ordem abaixo:
+
+1. [netflix-config-server](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-config-server)
+2. [netflix-eureka-server](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-eureka-server)
+3. [netflix-user](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-user)
+4. [netflix-authorization](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-authorization)
+5. [netflix-authorization](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-authorization)
+6. [netflix-category](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-category)
+7. [netflix-likes](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-likes)
+8. [netflix-movies](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-movies)
+9. [netflix-series](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-series)
+10. [netflix-help-desk](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-help-desk)
+11. [netflix-netflix-gateway](https://github.com/sironAzevedo/fiap-76aoj-netflix/tree/main/netflix-netflix-gateway)
+
+Fique à vontade para usar seu IDE favorita
+
+Acessar o dashboard do Eureka Server no navegador: http://localhost:8761/   
+Acessar o dashboard do zipkin no navegador: http://localhost:9411/   
+Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): http://localhost:9092/   
+
+#### Acessando as aplicações pelo Postman:
+
+* **Login**
 
 
 
-**Executando a aplicação com Docker (Recomendando):**
+```
+Login Cliente:
+Usuario: teste_create_silva@fiap.com
+Senha: 123
+
+Login Aplicação:
+Username: fiapappnetflix
+Password: fiapappnetflix76aoj
+
+```
+
+![authorization](readme/img/postman-login-tela-authorization.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
