@@ -100,7 +100,7 @@ Password: fiapappnetflix76aoj
 ```
 
 ![authorization](readme/img/postman-login-tela-authorization.png)
-![body](readme/img/postman-login-tela-authorization.png)
+![body](readme/img/postman-login-body.png)
 
 
 
