@@ -44,6 +44,7 @@ Siga as instruções abaixo para construir e executar o projeto de forma simples e
 * Java 11
 * Maven
 * PostgreSQL (Recommendo utilizar o Docker)
+* Redis
 * Zookeeper/Kafka (Recommendo utilizar o Docker)
 * Postman for testing
 * Zipkin (Recommendo utilizar o Docker)
@@ -79,16 +80,19 @@ Execute os microsserviços seguindo a ordem abaixo:
 
 Fique à vontade para usar seu IDE favorita
 
-Acessar o dashboard do Eureka Server no navegador: http://localhost:8761/   
-Acessar o dashboard do zipkin no navegador: http://localhost:9411/   
-Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): http://localhost:9092/ 
-url-netflix-netflix-gateway: http://localhost:8765
+Acessar o dashboard do Eureka Server no navegador: `http://localhost:8761/`   
+Acessar o dashboard do zipkin no navegador: `http://localhost:9411/`   
+Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): `http://localhost:9092/`   
+
+url-netflix-config-server: `http://localhost:8888/`   
+url-netflix-eureka-server: `http://localhost:8761/eureka`   
+url-netflix-netflix-gateway: `http://localhost:8765/`   
 
 #### Acessando as aplicações pelo Postman:
 
 * **Login**
 
-URL: http://localhost:8765/netflix-authorization/oauth/token
+URL: `{{url-netflix-netflix-gateway}}/netflix-authorization/oauth/token`
 
 ```
 
@@ -106,13 +110,27 @@ Password: fiapappnetflix76aoj
 ![authorization](readme/img/postman-login-tela-authorization.png)
 ![body](readme/img/postman-login-body.png)
 
-
-* **Acessando a lista de Filmes**
-
-url-listar-filme: {{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10
-Copiar o token gerado no login e colar na aba de Authorization:
-
+**OBS.:** Copiar o token gerado no login e colar na aba de Authorization para realizar as requisições abaixo:   
 ![listar-filme](readme/img/postman-listar-filmes.png)
+
+* **Exemplos de requisição**
+
+Listar Categorias: `{{url-netflix-netflix-gateway}}/netflix-category/category?page=0&size=5`   
+
+```
+hhjhjh
+
+```
+
+
+
+
+
+
+
+ 
+Listar Filmes: `{{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10`   
+
 
 
 

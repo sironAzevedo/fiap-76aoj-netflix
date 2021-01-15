@@ -1,0 +1,57 @@
+#REQUISITOS DO TRABALHO:
+ Possibilidade de visualizar os filmes de um determinado gênero = OK
+ Possibilidade de visualizar os detalhes de cada filme = OK
+ Possibilidade de buscar um filme por palavra-chave = OK
+ Possibilidade de visualizar os filmes e séries que já foram assistidos
+	-> SERVIÇO DE FILME = OK
+	-> SERVIÇO DE SERIE = OK
+
+ Possibilidade de votar nos filmes que mais gostei = OK
+ Possibilidade de marcar um filme ou série para ser visto no futuro:
+	-> SERVIÇO DE FILME = OK
+	-> SERVIÇO DE SERIE = OK
+
+ Possibilidade de exibir os filmes mais vistos por categorias = OK;
+ Possibilidade de abrir um chamado técnico de algum problema que está acontecendo = OK;
+
+##CREATE REDE NO DOCKER
+docker network create 76aoj-netflix-net
+
+##BAIXAR IMAGE DO DOCKER HUB
+docker pull postgres:12-alpine
+
+##CREATE/EXECUTAR CONTAINER DOCKER
+-> BANCOS DE DADOS:
+	docker run -p 5432:5432 --name netflix-category-pg12  --network 76aoj-netflix-net -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db_netflix_category  postgres:12-alpine
+	docker run -p 5433:5432 --name netflix-movies-pg12    --network 76aoj-netflix-net -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db_netflix_movies    postgres:12-alpine
+	docker run -p 5434:5432 --name netflix-series-pg12    --network 76aoj-netflix-net -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db_netflix_series    postgres:12-alpine
+	docker run -p 5435:5432 --name netflix-user-pg12      --network 76aoj-netflix-net -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db_netflix_user      postgres:12-alpine
+	docker run -p 5436:5432 --name netflix-help-desk-pg12 --network 76aoj-netflix-net -e POSTGRES_PASSWORD=root -e POSTGRES_DB=db_netflix-help-desk postgres:12-alpine
+
+##CREATE IMAGE DOCKER	
+-> APLICAÇÃO:
+	docker build -t netflix-config-server:v1 .
+	docker build -t netflix-eureka-server:v1 .
+	docker build -t netflix-user:v1 .
+	docker build -t netflix-authorization:v1 .	
+	docker build -t netflix-category:v1 .
+	docker build -t netflix-likes:v1 .
+	docker build -t netflix-movies:v1 .
+	docker build -t netflix-series:v1 .
+	docker build -t netflix-help-desk:v1 .
+	docker build -t netflix-netflix-gateway:v1 .
+
+-> APLICAÇÃO
+	docker run -p 8888:8888 --name netflix-config-server --network 76aoj-netflix-net netflix-config-server:v1
+	docker run -p 8761:8761 --name netflix-eureka-server --network 76aoj-netflix-net netflix-eureka-server:v1
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-user:v1
+	docker run -P --network 76aoj-netflix-net netflix-authorization:v1	
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-category:v1
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-likes:v1
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-movies:v1
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-series:v1
+	docker run -P --network 76aoj-netflix-net -e ENVIRONMENT=prod netflix-help-desk:v1
+	docker run -p 8765:8765 --name netflix-gateway --network 76aoj-netflix-net netflix-gateway:v1
+
+
+

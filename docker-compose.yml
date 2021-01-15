@@ -87,6 +87,14 @@ services:
         - "9411:9411"
         networks:
         - 76aoj-netflix-net
+    
+    netflix-redis:
+        container_name: netflix-redis
+        image: redis
+        ports:
+        - "6379:6379"
+        networks:
+        - 76aoj-netflix-net            
 
 networks:
   76aoj-netflix-net:

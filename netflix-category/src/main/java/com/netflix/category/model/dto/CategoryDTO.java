@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class CategoryDTO implements Serializable {
+	public static final String CACHE_NAME = "Category";
 	private static final long serialVersionUID = 1L;
 
 	private Long id;

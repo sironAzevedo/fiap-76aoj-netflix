@@ -1,0 +1,20 @@
+Comandos kafka:
+Start zookeeper: zookeeper-server-start.bat C:\Tools\kafka\config\zookeeper.properties
+Start kafka: kafka-server-start.bat C:\Tools\kafka\config\server.properties
+
+Topics:
+Listar: kafka-topics --bootstrap-server localhost:9092 --list
+Criar: kafka-topics --bootstrap-server localhost:9092 --create --topic venda-ingressos
+Alterar: kafka-topics --bootstrap-server localhost:9092 --alter --topic teste --partitions 10
+Detalhar: kafka-topics --bootstrap-server localhost:9092 --topic teste --describe
+Consumir topic: kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic venda-ingressos
+Consumir Topics do Inicio:  kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic venda-ingressos --from-beginning
+Consumir Topics por grupo: kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic venda-ingressos --group grupo1
+Delete: kafka-topics --bootstrap-server localhost:9092 --delete --topic teste
+
+Producer:
+Produzir mensagem manualmente: kafka-console-producer.bat --broker-list localhost:9092 --topic teste
+
+Mensagem com chave e valor
+Produzir mensagem manualmente: kafka-console-producer.bat --broker-list localhost:9092 --topic teste --property "parse.key=true" --property "key.separator=,"
+Consumir Topics por grupo: kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic teste --property "print.key=true" --property "key.separator=," --group grupo1

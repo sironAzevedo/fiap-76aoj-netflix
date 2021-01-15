@@ -1,0 +1,33 @@
+Exemplo tabalho fiap:
+
+https://github.com/fiap-69aoj
+https://github.com/aferlim/fiap-tct-netflix-movies
+https://github.com/aferlim/fiap-tcd-netflix-infra
+https://github.com/fiap-69aoj/netflix
+
+
+Criar API de Filme (movies)
+Recursos:
+	-> Listar Filmes Por Genero
+	-> Detalhar Filme
+	-> Buscar Filme por palavra chave	
+	-> Listar Filmes Mais Visto por Categorias
+	-> Listar filmes e séries que já foram assistidos (Movies-watched)
+
+Criar API Rating (Avaliação)
+Recursos:
+	-> Rating (POST - PUT) -> Usar o Kafka
+
+
+Criar API My Movies (Minha Lista)
+Recursos:
+	-> add (POST) -> Usar o Kafka
+	-> delete (DELETE) -> Usar o Kafka
+
+Criar API de Genero
+Recursos:
+	-> Listar generos
+		
+Criar API de Categorias
+Recursos:
+	-> Listar categorias
