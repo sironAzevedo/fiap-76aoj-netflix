@@ -1,8 +1,10 @@
 package com.netflix.category.service.impl;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,12 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Autowired
 	private ICategoryRepository repo;
+	
+	@Override
+	@CacheEvict(cacheNames = CategoryDTO.CACHE_NAME, allEntries = true)
+	public void create(CategoryDTO dto) {
+		repo.save(CategoryConverter.INSTANCE.toEntity(dto));
+	}
 
 	@Override
 	@Cacheable(cacheNames = CategoryDTO.CACHE_NAME, key="#pageable.getPageNumber() + #pageable.getPageSize()")
@@ -33,5 +41,11 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Cacheable(cacheNames = CategoryDTO.CACHE_NAME, key="#id")
 	public CategoryDTO findById(Long id) {
 		return repo.findById(id).map(CategoryConverter.INSTANCE::toDTO).orElse(null);
+	}
+
+	@Override
+	@CacheEvict(cacheNames = CategoryDTO.CACHE_NAME, allEntries = true)
+	public void delete(Long id) {
+		Optional.ofNullable(findById(id)).ifPresent(c -> repo.deleteById(c.getId()));
 	}
 }

@@ -18,4 +18,10 @@ public interface CategoryConverter {
 	      @Mapping(target="name", source="entity.name")
 	    })
 	CategoryDTO toDTO(Category entity);
+	
+	@Mappings({
+	      @Mapping(target="id", source="dto.id"),
+	      @Mapping(target="name", source="dto.name")
+	    })
+	Category toEntity(CategoryDTO dto);
 }

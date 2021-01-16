@@ -33,7 +33,7 @@ Nós dividimos o dominio em 7 projetos: `(netflix-user, netflix-authorization, ne
 * **Spring Cloud OAuth (OAuth2) - Authentication and authorization between microservices:** Configuramos toda a segurança com Spring Security e `Spring Cloud OAuth` e conectamos através de adaptadores de segurança padrão spring com` OAuth2`. O nome de usuário e senha estão na memória para facilitar o teste.
 
 #### Solution Architecture Design <a name="architecture"></a> :link:
-Esse projeto consiste nos desenvolvimento de algumas funcionalidades do ecossistema do Netflix. Utilizando uma implementação baseada em Microserviços.
+![architecture](readme/img/architecture-design.png)
 
 
 ## How to run <a name="run"></a> :wrench:
@@ -55,14 +55,13 @@ Siga as instruções abaixo para construir e executar o projeto de forma simples e
 
 Execute o camando abaixo no terminal de sua preferencia:
 
-Via docker-compose:
-
+```
 Iniciando as aplicações: `docker-compose up -d --build`   
 Parando aplicações: `docker-compose down`   
 Visualizando logs: `docker-compose logs -f`   
+```
 
-
-#### Build and Run
+**Build and Run**
 
 Execute os microsserviços seguindo a ordem abaixo:
 
@@ -110,29 +109,45 @@ Password: fiapappnetflix76aoj
 ![authorization](readme/img/postman-login-tela-authorization.png)
 ![body](readme/img/postman-login-body.png)
 
-**OBS.:** Copiar o token gerado no login e colar na aba de Authorization para realizar as requisições abaixo:   
+**OBS.:** Copiar o conteudo do campo `token` gerado no login e colar na aba de Authorization para realizar as requisições abaixo:   
 ![listar-filme](readme/img/postman-listar-filmes.png)
 
-* **Exemplos de requisição**
+* **Exemplos de requisição:**
 
 Listar Categorias: `{{url-netflix-netflix-gateway}}/netflix-category/category?page=0&size=5`   
+Listar Movies: `{{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10`    
+Like Movie: `{{url-netflix-netflix-gateway}}/netflix-likes/likes/movie?email=teste_create_silva@email.com&movie=1&like=yes`     
+
+
+* **Acessando a base de dados:**
 
 ```
-hhjhjh
+db-netflix-user:
+	HOST: localhost
+	DATABASE: db_netflix_user
+	PORT: 5432
+OBS.: Caso já tenha o postgres instalado na maquina, por favor, execute o stop do mesmo para não dar conflito.
+	
+db-netflix-category:
+	HOST: localhost
+	DATABASE: db_netflix_category
+	PORT: 5433
+	
+db-netflix-movies:
+	HOST: localhost
+	DATABASE: db_netflix_movies
+	PORT: 5434
 
+db-netflix-series:
+	HOST: localhost
+	DATABASE: db_netflix_series
+	PORT: 5435
+
+db-netflix-help-desk:
+	HOST: localhost
+	DATABASE: db_netflix_help_desk
+	PORT: 5436
 ```
-
-
-
-
-
-
-
- 
-Listar Filmes: `{{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10`   
-
-
-
 
 
 

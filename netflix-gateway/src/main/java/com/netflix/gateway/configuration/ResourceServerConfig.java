@@ -48,6 +48,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			"/actuator/**",
 			"/netflix-user/user/by-mail", 
 			"/netflix-category/actuator/**",
+			"/netflix-category/category",
 			"/netflix-movies/movies",
 			"/netflix-series/series",
 			"/netflix-movies/actuator/**",
