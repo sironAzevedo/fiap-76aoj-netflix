@@ -56,8 +56,8 @@ Siga as instruções abaixo para construir e executar o projeto de forma simples e
 Execute o camando abaixo no terminal de sua preferencia:
 
 ```
-Iniciando as aplicações: `docker-compose up -d --build`   
-Parando aplicações: `docker-compose down`   
+Iniciando as aplicações de infra: `docker-compose up -d --build`   
+Parando aplicações de infra: `docker-compose down`   
 Visualizando logs: `docker-compose logs -f`   
 ```
 
@@ -96,7 +96,7 @@ URL: `{{url-netflix-netflix-gateway}}/netflix-authorization/oauth/token`
 ```
 
 Login Cliente:
-Usuario: teste_create_silva@fiap.com
+Usuario: cliente@email.com
 Senha: 123
 grant_type: password
 

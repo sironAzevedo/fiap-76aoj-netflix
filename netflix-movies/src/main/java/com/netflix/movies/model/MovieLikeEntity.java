@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.netflix.movies.model.enums.MovieLikeEnum;
+import com.netflix.movies.model.enums.YesNoEnum;
 
 @Entity
 @Table(name = "tb_movie_like")
@@ -27,7 +27,7 @@ public class MovieLikeEntity implements Serializable {
 	@NotNull
 	@Column(name = "liked")
 	@Enumerated(EnumType.STRING)
-	private MovieLikeEnum liked;
+	private YesNoEnum liked;
 
 	public MovieLikeEntity() {
 		super();
@@ -41,11 +41,11 @@ public class MovieLikeEntity implements Serializable {
 		this.pk = pk;
 	}
 
-	public MovieLikeEnum getLiked() {
+	public YesNoEnum getLiked() {
 		return liked;
 	}
 
-	public void setLiked(MovieLikeEnum liked) {
+	public void setLiked(YesNoEnum liked) {
 		this.liked = liked;
 	}
 

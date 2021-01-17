@@ -57,8 +57,8 @@ public class MovieController {
 	@GetMapping("/detail")
 	@ResponseStatus(value = HttpStatus.OK)
 	@ApiOperation(value = "Detail movie")
-	public MovieDTO detail(@RequestParam(value = "movie") Long movie) {
-		return service.detail(movie);
+	public MovieDTO detail(@RequestParam(value = "movie") Long movie, @RequestParam(value = "user", required = false) String user) {
+		return service.detail(movie, user);
 	}
 
 	@ResponseBody

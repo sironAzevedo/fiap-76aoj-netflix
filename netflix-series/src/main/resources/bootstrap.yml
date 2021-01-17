@@ -2,7 +2,7 @@ spring:
   application:
     name: netflix-series
   profiles:
-    active: ${ENVIRONMENT:test}
+    active: ${ENVIRONMENT:dev}
   cloud:
     config:
       #uri: http://netflix-config-server:8888 #Esta url estar apontando para o container docker

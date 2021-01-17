@@ -17,7 +17,7 @@ public class UserClientFallback implements UserClient {
 
 	@Override
 	public UserDTO findByEmail(String email) {
-		log.info("Error API Category: " + ((RuntimeException) cause).getCause().getLocalizedMessage());
+		log.info("Error API Category: " + cause.getLocalizedMessage());
 		return null;
 	} 
 }

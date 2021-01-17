@@ -17,7 +17,7 @@ public interface IMovieService {
 
 	Page<MovieDTO> findAll(Pageable pageable);
 
-	MovieDTO detail(Long id_movie);
+	MovieDTO detail(Long id_movie, String user);
 
 	Page<MovieDTO> byCategory(Long idCategory, Pageable pageable);
 

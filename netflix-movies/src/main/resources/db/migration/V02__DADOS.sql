@@ -8,15 +8,10 @@ INSERT INTO tb_movie (TITLE, SUMMARY, RELEASE_DATE) VALUES ('Baywatch', 'Para sa
 
 --INSERT MOVIE_CATEGORIA
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 1);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (1, 2);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (2, 1);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (3, 6);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (4, 1);
 INSERT INTO tb_movie_category (id_movie, id_category) VALUES (4, 2);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (4, 17);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (5, 1);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (5, 2);
-INSERT INTO tb_movie_category (id_movie, id_category) VALUES (5, 6);
+INSERT INTO tb_movie_category (id_movie, id_category) VALUES (5, 9);
 
 --INSERT MOVIE_KEYWORD
 INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Filmes de artes marciais');
@@ -27,14 +22,29 @@ INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (1, 'Jackie Chan');
 INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Fantasia');
 INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (2, 'Ficção');
 
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (3, 'Verão');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (3, 'Estudantes');
+
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (4, 'Viagem');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (4, 'Ilha');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (4, 'Misterio');
+
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (5, 'praia');
+INSERT INTO tb_movie_keyword (id_movie, key_word) VALUES (5, 'salva-vidas');
+
 --INSERT MOVIE_WATCHED
 INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (1, 1, '2020-12-01');
 INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (2, 1, '2020-12-01');
 INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (2, 2, '2020-12-01');
+INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (5, 1, '2020-12-01');
+INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (5, 2, '2020-12-01');
+INSERT INTO tb_movie_watched (id_user, id_movie, date_watched) VALUES (5, 3, '2020-12-01');
 
 --INSERT MOVIE_LIKE
-INSERT INTO tb_movie_like (id_user, id_movie, liked) VALUES (2, 1, 'YES');
-INSERT INTO tb_movie_like (id_user, id_movie, liked) VALUES (2, 2, 'NO');
+INSERT INTO tb_movie_like (id_user, id_movie, liked) VALUES (5, 1, 'YES');
+INSERT INTO tb_movie_like (id_user, id_movie, liked) VALUES (5, 2, 'NO');
+INSERT INTO tb_movie_like (id_user, id_movie, liked) VALUES (5, 3, 'YES');
 
 --INSERT MOVIE_WATCH_FUTURE
-INSERT INTO tb_movie_watch_future (id_user, id_movie) VALUES (2, 4);
+INSERT INTO tb_movie_watch_future (id_user, id_movie) VALUES (5, 4);
+INSERT INTO tb_movie_watch_future (id_user, id_movie) VALUES (5, 5);

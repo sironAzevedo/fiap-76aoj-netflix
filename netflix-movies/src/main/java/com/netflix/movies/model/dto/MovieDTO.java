@@ -14,16 +14,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.netflix.movies.model.enums.YesNoEnum;
 
 @JsonInclude(Include.NON_EMPTY)
 public class MovieDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	
+
 	@NotEmpty(message = "Informe o title")
 	private String title;
-	
+
 	@NotEmpty(message = "Informe o summary")
 	private String summary;
 
@@ -31,6 +32,8 @@ public class MovieDTO implements Serializable {
 	private Date releaseDate;
 	private List<String> categories = new ArrayList<>();
 	private List<String> keywords;
+	private YesNoEnum watched;
+	private YesNoEnum liked;
 
 	public MovieDTO() {
 		super();
@@ -82,6 +85,22 @@ public class MovieDTO implements Serializable {
 
 	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
+	}
+
+	public YesNoEnum getWatched() {
+		return watched;
+	}
+
+	public void setWatched(YesNoEnum watched) {
+		this.watched = watched;
+	}
+
+	public YesNoEnum getLiked() {
+		return liked;
+	}
+
+	public void setLiked(YesNoEnum liked) {
+		this.liked = liked;
 	}
 
 	@Override

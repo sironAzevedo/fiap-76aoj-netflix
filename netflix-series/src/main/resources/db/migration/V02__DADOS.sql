@@ -6,13 +6,10 @@ INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('Breaking Ba
 INSERT INTO tb_serie (TITLE, SUMMARY, RELEASE_DATE, SEASON) VALUES ('Narcos', 'A notória série sobre o tráfico é baseada na história real de violência e poder dos cartéis colombianos.', '2015-01-01', 3);
 
 --INSERT SERIE_CATEGORIA
-INSERT INTO tb_serie_category (id_serie, id_category) VALUES (1, 24);
 INSERT INTO tb_serie_category (id_serie, id_category) VALUES (1, 17);
 INSERT INTO tb_serie_category (id_serie, id_category) VALUES (2, 24);
-INSERT INTO tb_serie_category (id_serie, id_category) VALUES (2, 17);
 INSERT INTO tb_serie_category (id_serie, id_category) VALUES (3, 13);
-INSERT INTO tb_serie_category (id_serie, id_category) VALUES (4, 1);
-INSERT INTO tb_serie_category (id_serie, id_category) VALUES (4, 2);
+INSERT INTO tb_serie_category (id_serie, id_category) VALUES (4, 21);
 
 --INSERT SERIE_KEYWORD
 INSERT INTO tb_serie_keyword (id_serie, key_word) VALUES (1, 'apocalipse');
@@ -38,12 +35,14 @@ INSERT INTO tb_serie_keyword (id_serie, key_word) VALUES (4, 'drogas');
 
 --INSERT SERIE_WATCHED
 INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (1, 1, '2020-12-01');
-INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (2, 1, '2020-12-01');
-INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (2, 2, '2020-12-01');
+INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (1, 2, '2020-12-01');
+INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (5, 1, '2020-12-01');
+INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (5, 2, '2020-12-01');
+INSERT INTO tb_serie_watched (id_user, id_serie, date_watched) VALUES (5, 3, '2020-12-01');
 
 --INSERT SERIE_LIKE
-INSERT INTO tb_serie_like (id_user, id_serie, liked) VALUES (2, 1, 'YES');
-INSERT INTO tb_serie_like (id_user, id_serie, liked) VALUES (2, 2, 'NO');
+INSERT INTO tb_serie_like (id_user, id_serie, liked) VALUES (5, 1, 'YES');
+INSERT INTO tb_serie_like (id_user, id_serie, liked) VALUES (5, 2, 'NO');
 
 --INSERT SERIE_WATCH_FUTURE
-INSERT INTO tb_serie_watch_future (id_user, id_serie) VALUES (2, 3);
+INSERT INTO tb_serie_watch_future (id_user, id_serie) VALUES (5, 4);

@@ -29,7 +29,6 @@ import com.netflix.series.model.dto.SerieDTO;
 import com.netflix.series.model.dto.SerieLikeDTO;
 import com.netflix.series.model.dto.SerieUserDTO;
 import com.netflix.series.model.dto.SerieWatchedDTO;
-import com.netflix.series.model.dto.TopSerieCategoryDTO;
 import com.netflix.series.model.dto.TopSerieCategoryResponseDTO;
 import com.netflix.series.model.dto.TopSerieDTO;
 import com.netflix.series.model.dto.UserDTO;
@@ -117,7 +116,7 @@ public class SerieServiceImpl implements ISerieService {
 	
 	@Override
 	public SerieDTO detail(Long id_Serie) {
-		return repo.findById(id_Serie).map(convert::toDetail).get();
+		return convert.toDetail(findById(id_Serie));
 	}
 	
 	@Override
@@ -189,14 +188,7 @@ public class SerieServiceImpl implements ISerieService {
 	@Override
 	public List<TopSerieCategoryResponseDTO> getTopSerieByCategory(Pageable pageable) {
 		List<TopSerieCategoryResponseDTO> resp = new ArrayList<>();
-		List<TopSerieCategoryDTO> series = mcCustomRepo.getTopSerieByCategory().stream()
-		.collect(
-				collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(
-						comparingLong(TopSerieCategoryDTO::getCodSerie))), ArrayList::new));
-		
-		
-		
-		series.stream().collect(Collectors.groupingBy(c -> c.getCategory())).entrySet().forEach(entry -> {
+		mcCustomRepo.getTopSerieByCategory().stream().collect(Collectors.groupingBy(c -> c.getCategory())).entrySet().forEach(entry -> {
 			Optional.ofNullable(categoryClient.category(entry.getKey())).ifPresent(category -> {
 				TopSerieCategoryResponseDTO dtoResp = new TopSerieCategoryResponseDTO();
 				dtoResp.setCategory(category.getName());

@@ -29,10 +29,10 @@ import com.netflix.movies.model.dto.MovieDTO;
 import com.netflix.movies.model.dto.MovieLikeDTO;
 import com.netflix.movies.model.dto.MovieUserDTO;
 import com.netflix.movies.model.dto.MovieWatchedDTO;
-import com.netflix.movies.model.dto.TopMovieCategoryDTO;
 import com.netflix.movies.model.dto.TopMovieCategoryResponseDTO;
 import com.netflix.movies.model.dto.TopMovieDTO;
 import com.netflix.movies.model.dto.UserDTO;
+import com.netflix.movies.model.enums.YesNoEnum;
 import com.netflix.movies.repository.IMovieCategoryRepository;
 import com.netflix.movies.repository.IMovieKeywordsRepository;
 import com.netflix.movies.repository.IMovieLikeRepository;
@@ -116,8 +116,19 @@ public class MovieServiceImpl implements IMovieService {
 	}
 	
 	@Override
-	public MovieDTO detail(Long id_movie) {
-		return repo.findById(id_movie).map(convert::toDetail).get();
+	public MovieDTO detail(Long id_movie, String user) {
+		MovieDTO movie = convert.toDetail(findById(id_movie));
+		Optional.ofNullable(user).ifPresent(u -> {
+			Optional.ofNullable(userClient.findByEmail(u)).ifPresent(res -> {
+				if(movieWatchedRepo.findByPkUserAndMovie(res.getId(), movie.getId()).isPresent()) {
+					movie.setWatched(YesNoEnum.YES);
+				}
+				
+				movieLikeRepo.findByPkUserAndMovie(res.getId(), movie.getId()).ifPresent(r -> movie.setLiked(r.getLiked()));
+			});
+		});
+		
+		return movie;
 	}
 	
 	@Override
@@ -189,13 +200,7 @@ public class MovieServiceImpl implements IMovieService {
 	@Override
 	public List<TopMovieCategoryResponseDTO> getTopMovieByCategory(Pageable pageable) {
 		List<TopMovieCategoryResponseDTO> resp = new ArrayList<>();
-		
-		List<TopMovieCategoryDTO> movies = mcCustomRepo.getTopMovieByCategory().stream()
-		.collect(
-				collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(
-						comparingLong(TopMovieCategoryDTO::getCodMovie))), ArrayList::new));
-		
-		movies.stream().collect(Collectors.groupingBy(c -> c.getCategory())).entrySet().forEach(entry -> {
+		mcCustomRepo.getTopMovieByCategory().stream().collect(Collectors.groupingBy(c -> c.getCategory())).entrySet().forEach(entry -> {
 			Optional.ofNullable(categoryClient.category(entry.getKey())).ifPresent(category -> {
 				TopMovieCategoryResponseDTO dtoResp = new TopMovieCategoryResponseDTO();
 				dtoResp.setCategory(category.getName());
@@ -205,7 +210,6 @@ public class MovieServiceImpl implements IMovieService {
 					dto.setMovie(convert.toDTO(findById(top.getCodMovie())));
 					dtoResp.getMovies().add(dto);
 				});
-
 				resp.add(dtoResp);				
 			});
 		});
