@@ -84,7 +84,7 @@ Acessar o dashboard do zipkin no navegador: `http://localhost:9411/`
 Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/): `http://localhost:9092/`   
 
 url-netflix-config-server: `http://localhost:8888/`   
-url-netflix-eureka-server: `http://localhost:8761/eureka`   
+url-netflix-eureka-server: `http://localhost:8761/`   
 url-netflix-netflix-gateway: `http://localhost:8765/`   
 
 #### Acessando as aplicações pelo Postman:
