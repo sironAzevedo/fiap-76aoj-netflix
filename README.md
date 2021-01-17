@@ -85,13 +85,13 @@ Acessando o kafka pela ferramenta [Conductor](https://www.conduktor.io/download/
 
 url-netflix-config-server: `http://localhost:8888/`   
 url-netflix-eureka-server: `http://localhost:8761/`   
-url-netflix-netflix-gateway: `http://localhost:8765/`   
+url-netflix-gateway: `http://localhost:8765/`   
 
 #### Acessando as aplicações pelo Postman:
 
 * **Login**
 
-URL: `{{url-netflix-netflix-gateway}}/netflix-authorization/oauth/token`
+URL: `{{url-netflix-gateway}}/netflix-authorization/oauth/token`
 
 ```
 
@@ -114,9 +114,9 @@ Password: fiapappnetflix76aoj
 
 * **Exemplos de requisição:**
 
-Listar Categorias: `{{url-netflix-netflix-gateway}}/netflix-category/category?page=0&size=5`   
-Listar Movies: `{{url-netflix-netflix-gateway}}/netflix-movies/movies?page=0&size=10`    
-Like Movie: `{{url-netflix-netflix-gateway}}/netflix-likes/likes/movie?email=teste_create_silva@email.com&movie=1&like=yes`     
+Listar Categorias: `{{url-netflix-gateway}}/netflix-category/category?page=0&size=5`   
+Listar Movies: `{{url-netflix-gateway}}/netflix-movies/movies?page=0&size=10`    
+Like Movie: `{{url-netflix-gateway}}/netflix-likes/likes/movie?email=teste_create_silva@email.com&movie=1&like=yes`     
 
 
 * **Acessando a base de dados:**
